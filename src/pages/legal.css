@@ -1,0 +1,32 @@
+.legal {
+  min-height: 100vh;
+  background: var(--arena);
+}
+.legal__head {
+  padding: 24px var(--gutter);
+  border-bottom: 1px solid var(--line);
+}
+.legal__back {
+  color: var(--gold);
+}
+.legal__main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(40px, 8vh, 96px) var(--gutter) 120px;
+  display: grid;
+  gap: 32px;
+}
+.legal__updated {
+  margin-top: -16px;
+}
+.legal__section {
+  display: grid;
+  gap: 14px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.legal__ph {
+  color: var(--gold);
+  border: 1px dashed var(--gold-dim);
+  padding: 16px;
+}

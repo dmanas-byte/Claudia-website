@@ -1,0 +1,318 @@
+/* ── Nav ─────────────────────────────────────────────────────────────────── */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: var(--z-chrome);
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--gutter);
+  pointer-events: none;
+  will-change: transform;
+}
+.nav > * {
+  pointer-events: auto;
+}
+.nav__mark {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--bone);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+}
+.nav__mark small {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+  letter-spacing: var(--track-mono);
+  color: var(--ash);
+  font-weight: 500;
+}
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.nav__link {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--track-mono);
+  text-transform: uppercase;
+  color: var(--ash);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+.nav__link:hover {
+  color: var(--bone);
+}
+@media (max-width: 720px) {
+  .nav__link {
+    display: none;
+  }
+  .nav__cta {
+    display: none;
+  }
+  .nav__mark small {
+    display: none;
+  }
+}
+
+/* ── Belt (progress) ─────────────────────────────────────────────────────── */
+.belt {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-chrome);
+  height: var(--belt-h);
+  background: rgba(242, 238, 230, 0.08);
+  pointer-events: none;
+}
+.belt__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  background: #f2eee6;
+  box-shadow: 0 0 12px rgba(242, 238, 230, 0.25);
+  will-change: width, background-color;
+}
+.belt__degrees {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 0;
+  height: var(--belt-h);
+  display: flex;
+  gap: 3px;
+  align-items: stretch;
+  padding: 0 6px;
+  background: #b3261e; /* red degree bar */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.belt__degrees.is-on {
+  opacity: 1;
+}
+.belt__degrees i {
+  display: block;
+  width: 3px;
+  background: transparent;
+  transition: background-color 0.12s steps(1);
+}
+.belt__degrees i.is-earned {
+  background: #f2eee6;
+}
+.belt__degrees i.is-flash {
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--gold);
+}
+.belt__knot {
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 44px;
+  height: 22px;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.belt__knot.is-tied {
+  opacity: 1;
+}
+.belt__knot path {
+  fill: none;
+  stroke: #f2eee6;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 140;
+  stroke-dashoffset: 140;
+}
+.belt__knot.is-tied path {
+  animation: belt-tie 0.6s var(--ease-inout-power3) forwards;
+}
+@keyframes belt-tie {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ── Slate ───────────────────────────────────────────────────────────────── */
+.slate {
+  position: fixed;
+  left: var(--gutter);
+  bottom: calc(var(--belt-h) + 14px);
+  z-index: var(--z-chrome);
+  color: var(--bone);
+  opacity: 0.6;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  display: flex;
+  gap: 1em;
+}
+.slate.is-switching {
+  opacity: 0;
+}
+@media (max-width: 720px) {
+  .slate {
+    display: none;
+  }
+}
+
+/* ── Letterbox ───────────────────────────────────────────────────────────── */
+.letterbox {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: var(--z-letterbox);
+  height: var(--letterbox);
+  background: #000;
+  pointer-events: none;
+  will-change: height;
+}
+.letterbox--top {
+  top: 0;
+}
+.letterbox--bottom {
+  bottom: 0;
+}
+
+/* ── Grain / vignette ────────────────────────────────────────────────────── */
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: var(--z-grain);
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: soft-light;
+  background-repeat: repeat;
+  background-size: 160px 160px;
+  animation: grain-shift 0.7s steps(6) infinite;
+}
+@keyframes grain-shift {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-3%, 2%);
+  }
+  40% {
+    transform: translate(2%, -4%);
+  }
+  60% {
+    transform: translate(-1%, 4%);
+  }
+  80% {
+    transform: translate(4%, -2%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-grain);
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+/* ── Flash (hard cut) ────────────────────────────────────────────────────── */
+.flash {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-flash);
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Preloader (cold open) ───────────────────────────────────────────────── */
+.cold {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  background: #000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.cold__light {
+  position: absolute;
+  top: -20vh;
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.25) 18%, transparent 46%);
+  opacity: 0;
+  transform: translateX(-50%);
+  filter: blur(2px);
+}
+.cold__light--1 {
+  left: 25%;
+}
+.cold__light--2 {
+  left: 50%;
+}
+.cold__light--3 {
+  left: 75%;
+}
+.cold__light.is-on {
+  animation: cold-thunk 0.09s steps(1) forwards;
+}
+@keyframes cold-thunk {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.18;
+  }
+}
+.cold__round {
+  position: relative;
+  color: var(--bone);
+  font-size: var(--fs-mono-lg);
+  letter-spacing: 0.3em;
+}
+.cold__skip {
+  position: absolute;
+  right: var(--gutter);
+  bottom: calc(var(--gutter-y));
+  color: var(--ash);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 8px;
+}
+.cold__skip:hover {
+  color: var(--bone);
+}
+
+/* ── Sticky mobile CTA ───────────────────────────────────────────────────── */
+.sticky-cta {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: calc(var(--belt-h) + 14px);
+  z-index: var(--z-chrome);
+  display: none;
+  transform: translateY(140%);
+  transition: transform 0.4s var(--ease-out-power2);
+}
+.sticky-cta.is-visible {
+  transform: translateY(0);
+}
+.sticky-cta .btn {
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+@media (max-width: 720px) {
+  .sticky-cta {
+    display: block;
+  }
+}

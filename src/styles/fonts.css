@@ -1,0 +1,31 @@
+/* Self-hosted: JetBrains Mono (data/labels) and Instrument Serif italic (accent). */
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource/instrument-serif/400-italic.css';
+
+/*
+  Clash Display and Satoshi are served from Fontshare (see index.html).
+  To self-host instead, run `npm run fonts` (scripts/fetch-fonts.mjs) which
+  downloads the woff2 files into public/fonts and rewrites this block.
+
+  The fallback faces below are metric-adjusted local fonts so the layout does
+  not shift when the web fonts arrive (font-display: swap on the CDN side).
+*/
+@font-face {
+  font-family: 'Clash Display Fallback';
+  src: local('Helvetica Neue Bold'), local('HelveticaNeue-Bold'), local('Arial Bold'), local('Arial-BoldMT'), local('Arial');
+  font-weight: 500 700;
+  size-adjust: 99%;
+  ascent-override: 92%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Satoshi Fallback';
+  src: local('Helvetica Neue'), local('Arial'), local('ArialMT');
+  font-weight: 400 700;
+  size-adjust: 98%;
+  ascent-override: 96%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}

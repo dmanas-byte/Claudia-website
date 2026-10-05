@@ -1,0 +1,10 @@
+.static-scene {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-canvas);
+  background: var(--arena);
+}
+.static-scene__svg {
+  width: 100%;
+  height: 100%;
+}

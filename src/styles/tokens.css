@@ -1,0 +1,68 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   THE WALKOUT — design tokens
+   Light comes from the 3D scene, not from CSS. Keep these flat.
+   ────────────────────────────────────────────────────────────────────────── */
+:root {
+  /* palette */
+  --arena: #07070a;
+  --smoke: #15161c;
+  --bone: #f2eee6;
+  --ash: #8b8c93;
+  --gold: #d2a64b;
+  --ember: #ff5a1f;
+  --terminal: #38e8ff;
+
+  --gold-dim: rgba(210, 166, 75, 0.35);
+  --bone-dim: rgba(242, 238, 230, 0.12);
+  --line: rgba(242, 238, 230, 0.14);
+
+  /* type families */
+  --font-display: 'Clash Display', 'Clash Display Fallback', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Satoshi', 'Satoshi Fallback', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-serif: 'Instrument Serif', 'Times New Roman', Georgia, serif;
+
+  /* fluid type scale */
+  --fs-display-xl: clamp(3.25rem, 1rem + 9vw, 10.5rem);
+  --fs-display-lg: clamp(2.5rem, 0.8rem + 6.5vw, 7.5rem);
+  --fs-display-md: clamp(2rem, 1rem + 3.4vw, 4.5rem);
+  --fs-display-sm: clamp(1.5rem, 1rem + 1.8vw, 2.75rem);
+  --fs-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem); /* 17–19px */
+  --fs-body-sm: 0.9375rem;
+  --fs-mono: 0.75rem; /* 12px */
+  --fs-mono-sm: 0.6875rem; /* 11px */
+  --fs-mono-lg: 0.8125rem; /* 13px */
+
+  --track-display: -0.03em;
+  --track-mono: 0.12em;
+  --lh-body: 1.6;
+  --lh-display: 0.92;
+
+  /* layout */
+  --gutter: clamp(16px, 4vw, 64px);
+  --gutter-y: clamp(24px, 6vh, 72px);
+  --content-max: 1480px;
+  --copy-max: 38rem;
+  --nav-h: 72px;
+  --belt-h: 6px;
+  --letterbox: 0px; /* animated by JS: height of each 2.39:1 bar */
+
+  /* z layers */
+  --z-canvas: 0;
+  --z-content: 10;
+  --z-letterbox: 40;
+  --z-chrome: 50;
+  --z-grain: 60;
+  --z-flash: 70;
+  --z-preloader: 90;
+
+  /* motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-power2: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-inout-power3: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 0.3s;
+  --dur-base: 0.6s;
+  --dur-slow: 0.9s;
+
+  color-scheme: dark;
+}

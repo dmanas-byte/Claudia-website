@@ -1,0 +1,176 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   Shot layout. Each shot is a <section class="shot"> whose height sets how
+   long the camera spends there. Pinned shots wrap their copy in .shot__pin
+   (position: sticky) so the DOM stays put while the scene moves.
+   ────────────────────────────────────────────────────────────────────────── */
+.shot {
+  position: relative;
+  z-index: var(--z-content);
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+.shot__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  width: 100%;
+  display: grid;
+  overflow: hidden;
+}
+.shot__frame {
+  position: relative;
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + var(--gutter-y)) var(--gutter) calc(var(--gutter-y) + var(--belt-h) + 24px);
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  align-content: end;
+}
+.shot__pin > .shot__frame {
+  min-height: 0;
+  height: 100%;
+}
+/* copy placements */
+.shot__frame--bottom-left {
+  align-content: end;
+  justify-items: start;
+}
+.shot__frame--center-left {
+  align-content: center;
+  justify-items: start;
+}
+.shot__frame--center {
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+}
+.shot__frame--top-left {
+  align-content: start;
+  justify-items: start;
+}
+.shot__frame--right {
+  align-content: center;
+  justify-items: end;
+  text-align: left;
+}
+
+.shot__kicker {
+  color: var(--gold);
+  margin-bottom: clamp(12px, 2vh, 24px);
+}
+.shot__headline {
+  margin: 0 0 clamp(16px, 2.5vh, 32px);
+  max-width: 14ch;
+}
+.shot__headline--wide {
+  max-width: 22ch;
+}
+.shot__copy {
+  max-width: var(--copy-max);
+}
+.shot__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 14px;
+  margin-top: clamp(20px, 3vh, 36px);
+}
+
+/* mask reveal for headline lines */
+.reveal {
+  overflow: hidden;
+  display: block;
+  padding-bottom: 0.08em; /* room for descenders in italics */
+  margin-bottom: -0.08em;
+}
+.reveal__line {
+  display: block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+/* mono rule with label, e.g. "WHAT YOU GET" */
+.rule {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--ash);
+}
+.rule::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* disclaimer blocks */
+.disclaimer {
+  color: var(--ash);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+  letter-spacing: 0.06em;
+  text-transform: none;
+  line-height: 1.6;
+  max-width: 60ch;
+  border-left: 1px solid var(--gold-dim);
+  padding-left: 14px;
+  margin-top: clamp(20px, 3vh, 32px);
+}
+
+/* fields */
+.field {
+  display: grid;
+  gap: 8px;
+}
+.field__label {
+  color: var(--ash);
+}
+.field__input {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 16px;
+  background: rgba(21, 22, 28, 0.75);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  color: var(--bone);
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+.field__input:focus-visible {
+  border-color: var(--gold);
+  outline-offset: 0;
+}
+.field__input[aria-invalid='true'] {
+  border-color: var(--ember);
+}
+.field__error {
+  color: var(--ember);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono-sm);
+  letter-spacing: 0.06em;
+  text-transform: none;
+  min-height: 1.2em;
+}
+textarea.field__input {
+  min-height: 120px;
+  padding: 14px 16px;
+  resize: vertical;
+}
+
+@media (max-width: 720px) {
+  :root {
+    --nav-h: 60px;
+  }
+  .shot__frame {
+    padding-bottom: calc(var(--gutter-y) + 84px); /* sticky CTA clearance */
+  }
+  .shot__headline {
+    max-width: 12ch;
+  }
+  .shot__ctas .btn {
+    width: 100%;
+  }
+}

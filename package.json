@@ -6,8 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "preview": "vite preview",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "typecheck": "tsc -b",
+    "shots": "node --experimental-strip-types scripts/screenshot.ts",
+    "fonts": "node scripts/fetch-fonts.mjs",
+    "mock-endpoint": "node scripts/mock-endpoint.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
