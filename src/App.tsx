@@ -41,14 +41,13 @@ function resolveRoute(pathname: string): Route {
 /** `?motion=reduce`, `?nosmooth`, `?nointro`, `?nowebgl` for QA runs */
 function applyQueryOverrides() {
   const q = new URLSearchParams(window.location.search)
-  const s = useSettings.getState()
   if (q.get('motion') === 'reduce') useSettings.setState({ reducedMotion: true })
   if (q.has('nowebgl')) useSettings.setState({ webgl: false })
   if (q.has('nointro')) useSettings.setState({ introDone: true, preloaderDone: true })
   if (q.has('lowpower')) useSettings.setState({ lowPower: true })
   document.documentElement.dataset.motion = useSettings.getState().reducedMotion ? 'reduce' : 'full'
   document.documentElement.dataset.webgl = useSettings.getState().webgl ? 'on' : 'off'
-  return { nosmooth: q.has('nosmooth'), legacyOptin: window.location.pathname.startsWith(LEGACY_OPTIN_PATH) || s.preloaderDone === undefined }
+  return { nosmooth: q.has('nosmooth') }
 }
 
 export default function App() {

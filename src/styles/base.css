@@ -289,6 +289,10 @@ textarea {
   vertical-align: middle;
   white-space: nowrap;
 }
+.verify--dev {
+  color: var(--ash);
+  opacity: 0.6;
+}
 .verify {
   display: inline-block;
   margin-left: 0.5em;

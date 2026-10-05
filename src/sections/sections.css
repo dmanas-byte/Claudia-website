@@ -72,6 +72,9 @@
   transform: translateX(-100%);
 }
 @media (max-width: 720px) {
+  .tape {
+    text-align: left;
+  }
   .tape__row {
     grid-template-columns: 1fr;
     gap: 4px;
@@ -242,6 +245,23 @@
 @media (max-width: 900px) {
   .playbook {
     grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .playbook__intro .shot__headline {
+    font-size: var(--fs-display-sm);
+    margin-bottom: 8px;
+  }
+  .round__headline {
+    font-size: var(--fs-display-sm);
+  }
+  .round {
+    gap: 10px;
+  }
+  .round__body {
+    font-size: var(--fs-body-sm);
+  }
+  .playbook__stage {
+    min-height: 0;
   }
 }
 
@@ -302,9 +322,9 @@
 .challenge__grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 6px;
-  max-width: 320px;
-  margin-bottom: 20px;
+  gap: 5px;
+  max-width: 222px;
+  margin-bottom: 16px;
 }
 .challenge__cell {
   aspect-ratio: 1;
