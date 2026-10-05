@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { APPLY } from '../content/copy'
 import { PLACEHOLDER_PRICING } from '../content/placeholders'
 import { Shot } from '../ui/Shot'
@@ -8,7 +7,6 @@ import { Disclaimer } from '../ui/Disclaimer'
 import { ApplyForm } from '../ui/forms/ApplyForm'
 
 export function Shot10Apply() {
-  const [open, setOpen] = useState(false)
   return (
     <Shot id="10" frame="center-left" label="Apply to the program" className="shot--form">
       <div className="apply">
@@ -44,13 +42,8 @@ export function Shot10Apply() {
           </div>
         </div>
         <div className="apply__form">
-          {open ? (
-            <ApplyForm />
-          ) : (
-            <button type="button" className="btn btn--gold" onClick={() => setOpen(true)} aria-expanded={open} aria-controls="apply-form">
-              {APPLY.submit}
-            </button>
-          )}
+          <h3 className="mono gold">{APPLY.submit}</h3>
+          <ApplyForm />
         </div>
         <Disclaimer />
       </div>

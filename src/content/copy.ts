@@ -7,20 +7,20 @@ export const BRAND = {
   tagline: 'The Walkout',
   siteTitle: 'Claudia Gadelha — The Walkout',
   description:
-    'Claudia Gadelha’s financial-education program: her real portfolio, every trade alert by text, a 6-week options course, her Airbnb playbook, and live weekly calls.',
+    'Claudia Gadelha’s financial-education program: her real portfolio, every trade alert by text, a 6-week options course, her Airbnb playbook, and live weekly calls. Apply to the program.',
 }
 
 export const NAV = {
   program: 'The Program',
   story: 'Her Story',
-  cta: 'Start the 30-Day Challenge',
-  ctaShort: 'Start the Challenge',
+  cta: 'Apply to the Program',
+  ctaShort: 'Apply',
 }
 
 export const CTA = {
-  challenge: 'Start the free 30-Day Challenge',
-  challengeShort: 'Start the Challenge',
   apply: 'Apply to the Program',
+  applyShort: 'Apply to the Program',
+  program: 'See the program',
 }
 
 export const PRELOADER = {
@@ -128,28 +128,22 @@ export const CORNER = {
   members: 'MEMBERS —',
 }
 
-export const CHALLENGE = {
-  kicker: 'Free 30-day challenge',
-  headline: 'Thirty days. One corner. *Your* money.',
-  body: 'Thirty days of free daily lessons and prompts from Claudia on how she thinks about money, markets and building a portfolio.',
-  firstName: 'First name',
-  email: 'Email',
-  submit: 'Start the Challenge',
-  consent:
-    'By signing up you agree to receive emails from Claudia Gadelha about the challenge and the program. Unsubscribe any time. See our',
-  privacy: 'Privacy Policy',
-  and: 'and',
-  terms: 'Terms',
-  success: 'You’re in. Check your inbox.',
-  successSub: 'Your first lesson is on its way.',
-  error: 'That didn’t go through. Please try again, or email us directly.',
-  demoNote: 'Form endpoint not configured (VITE_FORM_ENDPOINT). Submission logged to console.',
+export const RIG = {
+  kicker: 'Applications open',
+  headline: 'The lights are *on*. Your turn.',
+  body: 'One program. Her real portfolio, every order by text, the options course, live weekly calls, the Airbnb playbook and the deals. Applications are reviewed by Claudia’s team.',
+  count: 'rig',
 }
 
 export const APPLY = {
   kicker: 'The Program',
   headline: 'Apply to the *program*.',
   body: 'The full program: portfolio access, trade alerts by text, the options course and signals, live weekly calls, the Airbnb playbook and real-estate deals.',
+  consent: 'By applying you agree to be contacted by Claudia Gadelha’s team about your application and the program. See our',
+  privacy: 'Privacy Policy',
+  and: 'and',
+  terms: 'Terms',
+  demoNote: 'Form endpoint not configured (VITE_FORM_ENDPOINT). Submission logged to console.',
   priceLabel: 'Membership',
   forTitle: 'Who this is for',
   for: [

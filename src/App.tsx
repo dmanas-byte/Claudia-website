@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { useSettings } from './store/useSettings'
 import { initScroll, scrollToAnchor } from './lib/scroll'
-import { LEGACY_OPTIN_PATH } from './content/links'
+import { LEGACY_OPTIN_PATH, LEGACY_OPTIN_TARGET } from './content/links'
 import { Nav } from './ui/Nav'
 import { Belt } from './ui/Belt'
 import { Slate } from './ui/Slate'
@@ -20,7 +20,7 @@ import { Shot05Playbook } from './sections/Shot05Playbook'
 import { Shot06Terminal } from './sections/Shot06Terminal'
 import { Shot07Alert } from './sections/Shot07Alert'
 import { Shot08Corner } from './sections/Shot08Corner'
-import { Shot09Challenge } from './sections/Shot09Challenge'
+import { Shot09Rig } from './sections/Shot09Rig'
 import { Shot10Apply } from './sections/Shot10Apply'
 import { Shot11Proof } from './sections/Shot11Proof'
 import { Shot12Finale } from './sections/Shot12Finale'
@@ -87,10 +87,10 @@ function Home() {
     const st = useSettings.getState()
     initScroll({ smooth: !st.reducedMotion && !nosmooth && !st.touch })
 
-    // legacy funnel link keeps working: /optin-1404 → /#challenge
+    // legacy funnel link keeps working: /optin-1404 → /#apply
     const legacy = window.location.pathname.startsWith(LEGACY_OPTIN_PATH)
     if (legacy) {
-      window.history.replaceState({}, '', '/#challenge')
+      window.history.replaceState({}, '', LEGACY_OPTIN_TARGET)
       useSettings.setState({ introDone: true, preloaderDone: true })
     }
     const hash = window.location.hash.replace('#', '')
@@ -128,7 +128,7 @@ function Home() {
         <Shot06Terminal />
         <Shot07Alert />
         <Shot08Corner />
-        <Shot09Challenge />
+        <Shot09Rig />
         <Shot10Apply />
         <Shot11Proof />
         <Shot12Finale />

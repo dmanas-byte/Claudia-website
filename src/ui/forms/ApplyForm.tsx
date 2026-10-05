@@ -1,7 +1,6 @@
 import { useId, useState, type FormEvent } from 'react'
 import { APPLY } from '../../content/copy'
 import { FORM_ENDPOINT_CONFIGURED, isEmail, useFormSubmit } from './useFormSubmit'
-import { CHALLENGE } from '../../content/copy'
 
 export function ApplyForm({ onDone }: { onDone?: () => void }) {
   const id = useId()
@@ -27,13 +26,13 @@ export function ApplyForm({ onDone }: { onDone?: () => void }) {
     return (
       <div className="form__success" role="status" aria-live="polite">
         <p className="display display--sm">{APPLY.success}</p>
-        {!FORM_ENDPOINT_CONFIGURED && <p className="mono mono--sm gold">{CHALLENGE.demoNote}</p>}
+        {!FORM_ENDPOINT_CONFIGURED && <p className="mono mono--sm gold">{APPLY.demoNote}</p>}
       </div>
     )
   }
 
   return (
-    <form className="form form--apply" onSubmit={onSubmit} noValidate>
+    <form className="form form--apply" id="apply-form" onSubmit={onSubmit} noValidate aria-describedby={`${id}-consent`}>
       <input type="hidden" name="form" value="apply" />
       <div className="form__row">
         <div className="field">
@@ -68,6 +67,17 @@ export function ApplyForm({ onDone }: { onDone?: () => void }) {
       <button type="submit" className="btn btn--gold form__submit" aria-busy={status === 'submitting'}>
         {status === 'submitting' ? 'Sending…' : APPLY.submit}
       </button>
+      <p className="form__consent mono mono--sm ash" id={`${id}-consent`}>
+        {APPLY.consent}{' '}
+        <a href="/privacy" data-route className="gold">
+          {APPLY.privacy}
+        </a>{' '}
+        {APPLY.and}{' '}
+        <a href="/terms" data-route className="gold">
+          {APPLY.terms}
+        </a>
+        .
+      </p>
       <p className="form__error field__error" role="alert" aria-live="assertive">
         {status === 'error' ? APPLY.error : ''}
       </p>

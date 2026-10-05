@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
-  "redirects": [{ "source": "/optin-1404", "destination": "/#challenge", "permanent": true }],
+  "redirects": [{ "source": "/optin-1404", "destination": "/#apply", "permanent": true }],
   "rewrites": [{ "source": "/((?!assets/|fonts/|favicon.svg|og.png).*)", "destination": "/index.html" }],
   "headers": [
     {

@@ -11,4 +11,6 @@ export const SISTER_SITE = {
   href: 'https://gadelhaclaudia.com',
 }
 
+/** old funnel link; now lands on the application */
 export const LEGACY_OPTIN_PATH = '/optin-1404'
+export const LEGACY_OPTIN_TARGET = '/#apply'

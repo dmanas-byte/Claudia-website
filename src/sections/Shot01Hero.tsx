@@ -44,24 +44,24 @@ export function Shot01Hero() {
         </p>
         <div className="shot__ctas" data-reveal style={{ opacity: 0 }}>
           <a
-            href="#challenge"
-            className="btn btn--gold"
-            onClick={(e) => {
-              e.preventDefault()
-              scrollToAnchor('challenge')
-            }}
-          >
-            {CTA.challenge}
-          </a>
-          <a
             href="#apply"
-            className="btn btn--ghost"
+            className="btn btn--gold"
             onClick={(e) => {
               e.preventDefault()
               scrollToAnchor('apply')
             }}
           >
             {CTA.apply}
+          </a>
+          <a
+            href="#program"
+            className="btn btn--ghost"
+            onClick={(e) => {
+              e.preventDefault()
+              scrollToAnchor('program')
+            }}
+          >
+            {CTA.program}
           </a>
         </div>
       </div>

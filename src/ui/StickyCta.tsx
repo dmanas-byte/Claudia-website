@@ -20,21 +20,21 @@ export function StickyCta() {
       document.removeEventListener('focusout', onBlur)
     }
   }, [])
-  // hidden on the hero, on the two form shots and when typing
-  const formShot = shot === 8 || shot === 9
+  // hidden on the hero, on the apply shot (the form is right there) and when typing
+  const formShot = shot === 9
   const visible = shot >= 1 && !formShot && !formFocused
   return (
     <div className={`sticky-cta ${visible ? 'is-visible' : ''}`} aria-hidden={!visible}>
       <a
-        href="#challenge"
+        href="#apply"
         className="btn btn--gold"
         tabIndex={visible ? 0 : -1}
         onClick={(e) => {
           e.preventDefault()
-          scrollToAnchor('challenge')
+          scrollToAnchor('apply')
         }}
       >
-        {CTA.challengeShort}
+        {CTA.applyShort}
       </a>
     </div>
   )

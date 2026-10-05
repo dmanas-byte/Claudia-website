@@ -74,7 +74,7 @@ export const CAMERA: ShotCamera[] = [
     to: { pos: [0, 19, 36], target: [0, 3, 0], fov: 50 },
     still: { pos: [0, 12, 25], target: [0, 3, 0], fov: 48 },
   },
-  // 09 — The 30-Day Challenge: looking up at the lighting rig
+  // 09 — The Rig: looking up at the lighting rig as it powers on
   {
     from: { pos: [0, 2.2, 7.5], target: [0, WORLD.lightRig.y - 2, 0], fov: 50 },
     to: { pos: [0, 3.5, 6], target: [0, WORLD.lightRig.y, 0], fov: 50 },

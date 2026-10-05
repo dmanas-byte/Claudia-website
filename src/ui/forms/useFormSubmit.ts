@@ -10,7 +10,7 @@ export const FORM_ENDPOINT_CONFIGURED = ENDPOINT.length > 0
  * in demo mode: the payload is logged and the success state shows, with a
  * visible note so nobody mistakes it for a live form.
  */
-export function useFormSubmit(form: 'challenge' | 'apply') {
+export function useFormSubmit(form: 'apply') {
   const [status, setStatus] = useState<FormStatus>('idle')
   const [message, setMessage] = useState('')
 

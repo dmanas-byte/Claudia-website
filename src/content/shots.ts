@@ -33,8 +33,8 @@ const defs: Omit<ShotDef, 'index'>[] = [
   { id: '06', title: 'THE TERMINAL', anchor: 'terminal', heightVh: 220, heightVhMobile: 180, pinned: true },
   { id: '07', title: 'THE ALERT', anchor: 'alert', heightVh: 200, heightVhMobile: 160, pinned: true },
   { id: '08', title: 'THE CORNER', anchor: 'corner', heightVh: 220, heightVhMobile: 170, pinned: true },
-  { id: '09', title: 'THE 30-DAY CHALLENGE', anchor: 'challenge', heightVh: 260, heightVhMobile: 160, pinned: true, pinnedMobile: false },
-  { id: '10', title: 'APPLY', anchor: 'apply', heightVh: 110, heightVhMobile: 100, pinned: false },
+  { id: '09', title: 'THE RIG', anchor: 'rig', heightVh: 240, heightVhMobile: 180, pinned: true },
+  { id: '10', title: 'APPLY', anchor: 'apply', heightVh: 120, heightVhMobile: 100, pinned: false },
   { id: '11', title: 'PROOF WALL', anchor: 'proof', heightVh: 120, heightVhMobile: 110, pinned: false },
   { id: '12', title: 'THE CRANE', anchor: 'finale', heightVh: 240, heightVhMobile: 190, pinned: true },
 ]

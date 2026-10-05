@@ -311,38 +311,32 @@
   color: var(--ash);
 }
 
-/* ── 09 Challenge ────────────────────────────────────────────────────────── */
-.challenge {
+/* ── 09 The Rig ──────────────────────────────────────────────────────────── */
+.rig {
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  gap: clamp(24px, 4vw, 64px);
-  align-items: end;
+  justify-items: start;
 }
-.challenge__grid {
+.rig__grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 5px;
-  max-width: 222px;
-  margin-bottom: 16px;
+  width: 222px;
+  margin-bottom: 12px;
 }
-.challenge__cell {
+.rig__cell {
   aspect-ratio: 1;
   background: rgba(242, 238, 230, 0.06);
   border: 1px solid var(--line);
   transition: background-color 0.06s steps(1), box-shadow 0.06s steps(1);
 }
-.challenge__cell.is-lit {
+.rig__cell.is-lit {
   background: var(--bone);
   box-shadow: 0 0 14px rgba(242, 238, 230, 0.55);
 }
-.challenge__count {
+.rig__count {
   color: var(--ash);
-}
-@media (max-width: 900px) {
-  .challenge {
-    grid-template-columns: 1fr;
-  }
+  margin-bottom: clamp(12px, 2vh, 24px);
 }
 
 /* ── 10 Apply ────────────────────────────────────────────────────────────── */
@@ -408,6 +402,8 @@
 .apply__form {
   display: grid;
   gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
 }
 @media (max-width: 900px) {
   .apply__top,

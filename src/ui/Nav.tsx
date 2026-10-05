@@ -47,7 +47,7 @@ export function Nav() {
         <a href="#story" className="nav__link" onClick={go('story')}>
           {NAV.story}
         </a>
-        <a href="#challenge" className="btn btn--gold btn--sm nav__cta" onClick={go('challenge')}>
+        <a href="#apply" className="btn btn--gold btn--sm nav__cta" onClick={go('apply')}>
           {NAV.cta}
         </a>
       </nav>
