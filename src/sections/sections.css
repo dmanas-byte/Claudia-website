@@ -3,7 +3,7 @@
 /* ── 01 Hero ─────────────────────────────────────────────────────────────── */
 .hero__headline {
   max-width: 12.5ch;
-  font-size: clamp(2.75rem, 1rem + 6.2vw, 6.4rem);
+  font-size: clamp(2.5rem, 1rem + 6.2vw, 6.4rem);
 }
 .hero__offer {
   max-width: 36rem;

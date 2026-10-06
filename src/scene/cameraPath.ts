@@ -16,6 +16,8 @@ export interface ShotCamera {
   ease?: (t: number) => number
   /** still used under reduced motion (defaults to the midpoint) */
   still?: CameraKey
+  /** optional fixed framing for portrait viewports (phones), overrides from/to */
+  portrait?: CameraKey
 }
 
 const linear = (t: number) => t
@@ -74,6 +76,7 @@ export const CAMERA: ShotCamera[] = [
     from: { pos: [px - 0.17, py + 0.01, pz + 0.72], target: [px - 0.17, py + 0.01, pz], fov: 40 },
     to: { pos: [px - 0.15, py + 0.02, pz + 0.56], target: [px - 0.15, py + 0.02, pz], fov: 40 },
     still: { pos: [px - 0.16, py + 0.015, pz + 0.62], target: [px - 0.16, py + 0.015, pz], fov: 40 },
+    portrait: { pos: [px, py + 0.1, pz + 0.95], target: [px, py + 0.1, pz], fov: 40 },
   },
   // 08 — The Corner: pull up and back, staying above the bowl so the seats read as a crowd
   {
@@ -116,9 +119,14 @@ const _a = new THREE.Vector3()
 const _b = new THREE.Vector3()
 
 /** Evaluate the camera for shot index `i` at local progress `t` (0..1). */
-export function evaluateCamera(i: number, t: number, outPos: THREE.Vector3, outTarget: THREE.Vector3): number {
+export function evaluateCamera(i: number, t: number, outPos: THREE.Vector3, outTarget: THREE.Vector3, portrait = false): number {
   const c = CAMERA[Math.max(0, Math.min(CAMERA.length - 1, i))]
   const cv = curves[Math.max(0, Math.min(CAMERA.length - 1, i))]
+  if (portrait && c.portrait) {
+    outPos.set(...c.portrait.pos)
+    outTarget.set(...c.portrait.target)
+    return c.portrait.fov ?? c.from.fov ?? 45
+  }
   const e = (c.ease ?? easeInOutCubic)(Math.max(0, Math.min(1, t)))
   if (cv.pos) cv.pos.getPointAt(e, outPos)
   else outPos.copy(_a.set(...c.from.pos)).lerp(_b.set(...c.to.pos), e)
@@ -130,8 +138,13 @@ export function evaluateCamera(i: number, t: number, outPos: THREE.Vector3, outT
 }
 
 /** Still frame for reduced motion. */
-export function stillCamera(i: number, outPos: THREE.Vector3, outTarget: THREE.Vector3): number {
+export function stillCamera(i: number, outPos: THREE.Vector3, outTarget: THREE.Vector3, portrait = false): number {
   const c = CAMERA[Math.max(0, Math.min(CAMERA.length - 1, i))]
+  if (portrait && c.portrait) {
+    outPos.set(...c.portrait.pos)
+    outTarget.set(...c.portrait.target)
+    return c.portrait.fov ?? c.from.fov ?? 45
+  }
   if (c.still) {
     outPos.set(...c.still.pos)
     outTarget.set(...c.still.target)

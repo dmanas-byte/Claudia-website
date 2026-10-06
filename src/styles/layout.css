@@ -212,6 +212,10 @@ textarea.field__input {
   :root {
     --nav-h: 60px;
   }
+  /* the backpack sits top-right in SHOT 01: keep copy to the lower 70 % */
+  .shot--01 .shot__frame {
+    padding-top: 34vh;
+  }
   .shot__frame {
     padding-bottom: calc(var(--gutter-y) + 84px); /* sticky CTA clearance */
   }

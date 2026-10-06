@@ -23,9 +23,10 @@ export function CameraRig() {
     const s = useScroll.getState()
     const reduced = useSettings.getState().reducedMotion
     const t = reduced ? 0 : s.shotProgress
+    const portrait = camera.aspect < 1
     let f: number
-    if (reduced) f = stillCamera(s.shot, pos.current, tgt.current)
-    else f = evaluateCamera(s.shot, t, pos.current, tgt.current)
+    if (reduced) f = stillCamera(s.shot, pos.current, tgt.current, portrait)
+    else f = evaluateCamera(s.shot, t, pos.current, tgt.current, portrait)
 
     const cut = s.shot !== lastShot.current
     lastShot.current = s.shot
@@ -48,8 +49,12 @@ export function CameraRig() {
     } else {
       camera.lookAt(smoothTgt.current)
     }
-    if (Math.abs(camera.fov - fov.current) > 0.01) {
-      camera.fov = fov.current
+    // portrait: the horizontal frustum is tiny, so widen the lens a little
+    const aspect = camera.aspect || 1
+    const portraitBoost = aspect < 1 ? (1 - aspect) * 14 : 0
+    const wantFov = fov.current + portraitBoost
+    if (Math.abs(camera.fov - wantFov) > 0.01) {
+      camera.fov = wantFov
       camera.updateProjectionMatrix()
     }
   })
