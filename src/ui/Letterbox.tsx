@@ -17,8 +17,8 @@ export function Letterbox() {
     }
     const target = { h: 0 }
     const setter = gsap.quickTo(target, 'h', {
-      duration: 0.55,
-      ease: 'power3.inOut',
+      duration: 0.9,
+      ease: 'power2.inOut',
       onUpdate: () => root.style.setProperty('--letterbox', `${target.h.toFixed(1)}px`),
     })
     let lastWanted = -1
@@ -27,9 +27,8 @@ export function Letterbox() {
       const full = Math.max(0, (h - w / 2.39) / 2)
       const maxBar = Math.min(full, h * 0.11)
       const atEnd = s.progress > 0.985 // footer: a reading moment
-      const edge = !atEnd && (s.shotProgress > 0.93 || (s.shotProgress < 0.07 && s.shot > 0))
-      const moving = s.wind > 0.18 && !atEnd
-      const wanted = edge || moving ? maxBar : 0
+      const moving = s.wind > 0.3 && !atEnd
+      const wanted = moving ? maxBar : 0
       if (wanted !== lastWanted) {
         lastWanted = wanted
         setter(wanted)

@@ -47,7 +47,7 @@ Everything a visitor reads lives in `src/content/`:
 | `facts.ts`          | career facts with `verified` flags and sources; the six timeline posters  |
 | `testimonials.ts`   | the member quotes (verbatim from the live site)                           |
 | `placeholders.ts`   | image slots (`src` per slot), community-proof images, placeholder tokens  |
-| `links.ts`          | socials, sister site, secondary pages                                     |
+| `links.ts`          | socials (only those cgadelha.com links to) and secondary pages            |
 | `shots.ts`          | the shot list: order, slate titles, anchors, scroll length per shot       |
 
 Wrap one word in `*asterisks*` inside a headline to set it in the italic serif accent.

@@ -14,8 +14,8 @@ const COLOR_LIT = '#f2eee6'
 /** 0..1 how much floor smoke the film wants right now */
 export function smokeLevel(r: SceneRead) {
   const sf = r.shotFloat
-  // thick in the arena, fading over 03 local 0.3→0.9 so the city reads clean
-  const hero = rangeLevel(sf, 0, 3.2, 0.3) * (1 - r.local(2, 0.3, 0.9))
+  // thick in the arena, fading in beat 3 of the journey so the city reads clean
+  const hero = rangeLevel(sf, 0, 3.2, 0.3) * (1 - r.local(2, 0.66, 0.95))
   // back thinner for the corner (08), the rig (09) and the crane (12)
   const corner = 0.45 * rangeLevel(sf, 7, 9, 0.2)
   const crane = 0.4 * rangeLevel(sf, 11, 12.5, 0.25)

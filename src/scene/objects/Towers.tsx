@@ -84,8 +84,8 @@ export function Towers() {
     const r = readScene()
     // posts only start to extrude 25 % into SHOT 03; before that the fence posts stand alone.
     // Reduced motion: SHOT 03 is a still, so hold the extrusion half way like the frozen pour.
-    const rise = r.reduced && r.shot === 2 ? 0.45 : r.local(2, 0.25, 0.95)
-    const show = r.shotFloat >= 2.2
+    const rise = r.reduced && r.shot === 2 ? 0.8 : r.local(2, 0.66, 1.0)
+    const show = r.shotFloat >= 2.62
     b.visible = show
     c.visible = show
     bc.visible = show
@@ -97,7 +97,7 @@ export function Towers() {
       last.current.frozen = r.reduced
     }
     // windows: scatter grows over SHOT 03, floors light in six steps across SHOT 04
-    mat.uniforms.uLit.value = 0.38 * r.local(2, 0.45, 1.0)
+    mat.uniforms.uLit.value = 0.38 * r.local(2, 0.74, 1.0)
     mat.uniforms.uBands.value = Math.floor(r.local(3, 0.05, 0.97) * 6 + 1e-4) / 6
 
     if (rise !== last.current.rise) {

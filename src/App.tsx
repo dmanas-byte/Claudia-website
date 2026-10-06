@@ -7,14 +7,13 @@ import { Belt } from './ui/Belt'
 import { Slate } from './ui/Slate'
 import { Letterbox } from './ui/Letterbox'
 import { Grain } from './ui/Grain'
-import { Flash } from './ui/Flash'
 import { Preloader } from './ui/Preloader'
 import { StickyCta } from './ui/StickyCta'
 import { StaticScene } from './fallback/StaticScene'
 import { Footer } from './sections/Footer'
 import { Shot01Hero } from './sections/Shot01Hero'
 import { Shot02Tape } from './sections/Shot02Tape'
-import { Shot03Backpack } from './sections/Shot03Backpack'
+import { Shot03Journey } from './sections/Shot03Journey'
 import { Shot04Record } from './sections/Shot04Record'
 import { Shot05Playbook } from './sections/Shot05Playbook'
 import { Shot06Terminal } from './sections/Shot06Terminal'
@@ -165,7 +164,7 @@ function Home() {
       <main id="main">
         <Shot01Hero />
         <Shot02Tape />
-        <Shot03Backpack />
+        <Shot03Journey />
         <Shot04Record />
         <Shot05Playbook />
         <Shot06Terminal />
@@ -182,7 +181,6 @@ function Home() {
       <Slate />
       <StickyCta />
       <Grain />
-      <Flash />
       {showPreloader && <Preloader />}
     </>
   )

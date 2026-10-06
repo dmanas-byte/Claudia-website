@@ -28,6 +28,8 @@ const STEPS = Number(opt('steps', '10'))
 const AT = (opt('at', '') ?? '').split(',').map((v) => v.trim()).filter(Boolean).map(Number)
 const VIEWPORT = opt('viewport', 'both')
 const SETTLE = Number(opt('settle', '1200'))
+/** --shots "02:0.5,03:0.2" capture inside specific shots at local progress p */
+const SHOTSPEC = (opt('shots', '') ?? '').split(',').map((v) => v.trim()).filter(Boolean)
 const EXE = process.env.PW_CHROME || (process.env.CI ? undefined : undefined)
 
 const VIEWPORTS = [
@@ -70,8 +72,20 @@ async function run(browser: Browser) {
     mkdirSync(dir, { recursive: true })
     const total = await page.evaluate(() => document.documentElement.scrollHeight - window.innerHeight)
     const pcts = AT.length ? AT : Array.from({ length: STEPS + 1 }, (_, i) => Math.round((i / STEPS) * 100))
-    for (const pct of pcts) {
-      const y = Math.round((total * pct) / 100)
+    const targets: { name: string; y: number }[] = SHOTSPEC.length
+      ? await page.evaluate((spec) => {
+          const vh = window.innerHeight
+          return spec.map((s) => {
+            const [id, p] = s.split(':')
+            const el = document.querySelector<HTMLElement>(`[data-shot="${id}"]`)!
+            const r = el.getBoundingClientRect()
+            const top = r.top + window.scrollY
+            return { name: `s${id}-${p}`, y: Math.round(top + Number(p) * Math.max(0, r.height - vh)) }
+          })
+        }, SHOTSPEC)
+      : pcts.map((pct) => ({ name: String(pct).padStart(3, '0'), y: Math.round((total * pct) / 100) }))
+    for (const { name, y } of targets) {
+      const pct = name
       await page.evaluate((yy) => window.scrollTo({ top: yy, behavior: 'auto' }), y)
       // SwiftShader frames can take hundreds of ms: wait for real frames, then a beat for GSAP
       await page.evaluate(
@@ -83,7 +97,7 @@ async function run(browser: Browser) {
           }),
       )
       await page.waitForTimeout(SETTLE)
-      await page.screenshot({ path: join(dir, `${String(pct).padStart(3, '0')}.png`) })
+      await page.screenshot({ path: join(dir, `${pct}.png`) })
       process.stdout.write(`${vp.name} ${pct}%  y=${y}\n`)
     }
     if (errors.length) {

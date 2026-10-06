@@ -101,7 +101,7 @@ export function GoldDust() {
       time.current += step
       drift.current += step * (1 + r.wind * 4)
     }
-    const want = (LEVEL_BY_SHOT[r.shot] ?? 0.5) * (r.shot === 2 ? 1 - 0.6 * r.local(2, 0.5, 1) : 1)
+    const want = (LEVEL_BY_SHOT[r.shot] ?? 0.5) * (r.shot === 2 ? 1 - 0.6 * r.local(2, 0.7, 1) : 1)
     level.current += (want - level.current) * (1 - Math.exp(-step * 4))
     const on = level.current > 0.02
     if (points.current) points.current.visible = on

@@ -18,6 +18,13 @@ export interface ShotCamera {
   still?: CameraKey
   /** optional fixed framing for portrait viewports (phones), overrides from/to */
   portrait?: CameraKey
+  /**
+   * optional time-keyed beats: [t 0..1, key]. Overrides from/via/to for
+   * evaluation (from/to must still equal the first/last key for continuity).
+   */
+  beats?: [number, CameraKey][]
+  /** beats used on portrait viewports instead of `beats` */
+  portraitBeats?: [number, CameraKey][]
 }
 
 const linear = (t: number) => t
@@ -46,12 +53,27 @@ export const CAMERA: ShotCamera[] = [
     to: { pos: [2.3, 1.45, 2.6], target: [-0.1, 0.55, 0], fov: 42 },
     still: { pos: [1.6, 1.35, 3.3], target: [-0.3, 0.4, 0], fov: 42 },
   },
-  // 03 — The Backpack: crane up 30 m and tilt down; arena → city block
+  // 03 — The Journey, three beats: the backpack alone (0–0.34), the whole cage
+  // lit (0.34–0.66), the city rising out of the octagon (0.66–1). Copy is left.
   {
-    from: { pos: [2.3, 1.45, 2.6], target: [-0.1, 0.55, 0], fov: 42 },
-    via: [{ pos: [3.2, 9, 7.5], target: [0, 1.5, 0] }],
-    to: { pos: [0.5, 32, 11], target: [0, 0, 0], fov: 48 },
-    still: { pos: [6, 22, 14], target: [0, 6, -2], fov: 46 },
+    from: { pos: [1.35, 0.95, 2.1], target: [-0.75, 0.2, 0], fov: 42 },
+    to: { pos: [16, 18, 30], target: [-5, 9, 0], fov: 48 },
+    beats: [
+      [0, { pos: [1.35, 0.95, 2.1], target: [-0.75, 0.2, 0], fov: 42 }],
+      [0.3, { pos: [1.12, 0.82, 1.72], target: [-0.66, 0.2, 0], fov: 42 }],
+      [0.5, { pos: [7.5, 5.5, 9.5], target: [-2.2, 0.6, 0], fov: 44 }],
+      [0.64, { pos: [8.3, 6.4, 10.6], target: [-2.4, 0.8, 0], fov: 44 }],
+      [1, { pos: [16, 18, 30], target: [-5, 9, 0], fov: 48 }],
+    ],
+    still: { pos: [16, 18, 30], target: [-5, 9, 0], fov: 48 },
+    // phones: the copy fills the top two thirds, so the picture sits low and centred
+    portraitBeats: [
+      [0, { pos: [0.3, 1.1, 4.06], target: [0.1, 1.4, 0], fov: 42 }],
+      [0.3, { pos: [0.28, 1.05, 3.8], target: [0.1, 1.33, 0], fov: 42 }],
+      [0.5, { pos: [4, 8, 14], target: [0, 3, 0], fov: 44 }],
+      [0.64, { pos: [4.4, 8.6, 15], target: [0, 3.2, 0], fov: 44 }],
+      [1, { pos: [8, 6, 22], target: [-1, 14, 0], fov: 48 }],
+    ],
   },
   // 04 — The Record: lateral glide above the city while the posters pass
   {
@@ -128,6 +150,21 @@ export function evaluateCamera(i: number, t: number, outPos: THREE.Vector3, outT
     outPos.set(...c.portrait.pos)
     outTarget.set(...c.portrait.target)
     return c.portrait.fov ?? c.from.fov ?? 45
+  }
+  const beats = portrait && c.portraitBeats ? c.portraitBeats : c.beats
+  if (beats) {
+    const tt = Math.max(0, Math.min(1, t))
+    const b = beats
+    let k = 1
+    while (k < b.length - 1 && tt > b[k][0]) k++
+    const [t0, a] = b[k - 1]
+    const [t1, z] = b[k]
+    const u = t1 > t0 ? Math.max(0, Math.min(1, (tt - t0) / (t1 - t0))) : 1
+    const s = u * u * (3 - 2 * u)
+    outPos.set(...a.pos).lerp(_b.set(...z.pos), s)
+    outTarget.set(...a.target).lerp(_b.set(...z.target), s)
+    const fa = a.fov ?? 45
+    return fa + ((z.fov ?? fa) - fa) * s
   }
   const e = (c.ease ?? easeInOutCubic)(Math.max(0, Math.min(1, t)))
   if (cv.pos) cv.pos.getPointAt(e, outPos)

@@ -100,7 +100,7 @@ export function City() {
     const im = mesh.current
     if (!im) return
     const r = readScene()
-    const rise = r.reduced && r.shot === 2 ? 0.5 : r.local(2, 0.5, 1.0)
+    const rise = r.reduced && r.shot === 2 ? 0.8 : r.local(2, 0.72, 1.0)
     const show = rise > 0
     im.visible = show
     if (!show) return
@@ -114,7 +114,7 @@ export function City() {
       frozen.current = false
     }
     // sparse scatter that keeps growing a little as the film goes on
-    mat.uniforms.uLit.value = 0.22 * r.local(2, 0.55, 1.0) + 0.1 * r.local(3) + 0.06 * r.local(4)
+    mat.uniforms.uLit.value = 0.22 * r.local(2, 0.76, 1.0) + 0.1 * r.local(3) + 0.06 * r.local(4)
     if (rise !== lastRise.current) {
       lastRise.current = rise
       for (let i = 0; i < blocks.length; i++) {

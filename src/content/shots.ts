@@ -27,7 +27,7 @@ export interface ShotDef {
 const defs: Omit<ShotDef, 'index'>[] = [
   { id: '01', title: 'THE WALKOUT', anchor: 'walkout', heightVh: 160, heightVhMobile: 140, pinned: true },
   { id: '02', title: 'TALE OF THE TAPE', anchor: 'tape', heightVh: 220, heightVhMobile: 140, pinned: true, pinnedMobile: false },
-  { id: '03', title: 'THE BACKPACK', anchor: 'backpack', heightVh: 260, heightVhMobile: 200, pinned: true },
+  { id: '03', title: 'THE JOURNEY', anchor: 'journey', heightVh: 330, heightVhMobile: 270, pinned: true },
   { id: '04', title: 'THE RECORD', anchor: 'story', heightVh: 380, heightVhMobile: 140, pinned: true, pinnedMobile: false },
   { id: '05', title: 'THE PLAYBOOK', anchor: 'program', heightVh: 720, heightVhMobile: 620, pinned: true },
   { id: '06', title: 'THE TERMINAL', anchor: 'terminal', heightVh: 220, heightVhMobile: 180, pinned: true },

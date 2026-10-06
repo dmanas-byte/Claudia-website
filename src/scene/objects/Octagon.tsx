@@ -124,8 +124,8 @@ export function Octagon() {
   useFrame(() => {
     const r = readScene()
     const sf = r.shotFloat
-    const fade = r.local(2, 0.3, 0.6)
-    const structure = sf < 2.35
+    const fade = r.local(2, 0.64, 0.8)
+    const structure = sf < 2.66
     if (posts.current) posts.current.visible = structure
     if (rails.current) rails.current.visible = structure
     if (panels.current) {
@@ -134,7 +134,7 @@ export function Octagon() {
       fenceMat.uniforms.uSpill.value = spotLevel(r) * (1 + r.flash * 1.5)
     }
     if (outline.current) {
-      const plan = r.local(2, 0.5, 1)
+      const plan = r.local(2, 0.34, 0.6)
       const strong = rangeLevel(sf, 7, 12.5, 0.25)
       const k = (0.1 + 0.8 * plan + 0.5 * strong) * (1 + r.flash * 0.6)
       outlineMat.color.copy(GOLD).multiplyScalar(k)

@@ -1,5 +1,5 @@
 import { BRAND, DISCLAIMER_LONG, FOOTER } from '../content/copy'
-import { PAGES, SISTER_SITE, SOCIALS } from '../content/links'
+import { PAGES, SOCIALS } from '../content/links'
 import { CONTACT_EMAIL, PLACEHOLDER_YEAR } from '../content/placeholders'
 import { useSettings } from '../store/useSettings'
 import { Logo } from '../ui/Logo'
@@ -35,9 +35,6 @@ export function Footer() {
                 {p.label}
               </a>
             ))}
-            <a className="footer__link" href={SISTER_SITE.href} target="_blank" rel="noopener noreferrer">
-              {FOOTER.sister}
-            </a>
           </div>
           <div className="footer__col">
             <h2 className="mono">{FOOTER.legal}</h2>

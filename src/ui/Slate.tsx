@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { SHOTS, SHOT_COUNT } from '../content/shots'
 import { useScroll } from '../store/useScroll'
 
-/** Bottom-left slate: "SHOT 03 / 12 — THE BACKPACK", cross-fades per shot. */
+/** Bottom-left slate: "SHOT 03 / 12 — THE JOURNEY", cross-fades per shot. */
 export function Slate() {
   const shot = useScroll((s) => s.shot)
   const [shown, setShown] = useState(shot)

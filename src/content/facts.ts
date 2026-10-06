@@ -34,20 +34,24 @@ export interface Fact {
   note?: string
 }
 
-export const FIGHTER_FACTS: Fact[] = [
-  { label: 'From', value: 'Mossoró, Brazil', verified: true, source: 'sherdog.com/fighter/Claudia-Gadelha-48404' },
-  { label: 'Start', value: 'Hitchhiked 4 hours to her first BJJ gym at 15', verified: true, source: 'owner site (cgadelha.com)' },
-  { label: 'Camp', value: 'Trained with José Aldo and Renan Barão', verified: true, source: 'owner site; Nova União black belt 2010 (graciemag.com)' },
-  { label: 'Title fight', value: 'vs. Joanna Jędrzejczyk, 8 Jul 2016', verified: true, source: 'ufc.com/news/ultimate-fighter-finale-final-results-news' },
-  { label: 'Retired', value: 'Dec 2021 · 18–5', verified: true, source: 'sherdog.com/news/…Claudia-Gadelha-Announces-Retirement-183646' },
+/** Tale of the tape, left panel: her fight career. */
+export const CAGE_FACTS: Fact[] = [
+  { label: 'Hometown', value: 'Mossoró, Brazil', verified: true, source: 'sherdog.com/fighter/Claudia-Gadelha-48404' },
+  { label: 'Division', value: 'Strawweight, 115 lb', verified: true, source: 'ufc.com/athlete/claudia-gadelha' },
+  { label: 'Pro record', value: '18–5', verified: true, source: 'sherdog.com/fighter/Claudia-Gadelha-48404' },
+  { label: 'Peak rank', value: 'No. 1 contender', verified: true, source: 'ufc.com/video/52379 (No. 1 vs No. 2, UFC 212)' },
+  { label: 'Title fight', value: 'vs. Joanna Jędrzejczyk, 2016', verified: true, source: 'ufc.com/news/ultimate-fighter-finale-final-results-news' },
+  { label: 'Team', value: 'Nova União', verified: true, source: 'graciemag.com (black belt under André Pederneiras, 2010)' },
 ]
 
-export const ARCHITECT_FACTS: Fact[] = [
-  { label: '8-Fig', value: '8-figure investor', verified: true, source: 'owner site (cgadelha.com)' },
-  { label: 'Options', value: 'Growth investor and options trader', verified: true, source: 'owner site (cgadelha.com)' },
-  { label: 'BJJ', value: '4th-degree BJJ black belt', verified: true, source: 'owner site (cgadelha.com); black belt under André Pederneiras, 2010' },
-  { label: 'Exec', value: 'UFC executive', verified: true, source: 'ufc.com — Senior Director, Jiu-Jitsu Strategy & Business Development (Jun 2025)' },
-  { label: 'Law', value: 'Law graduate', verified: true, source: 'owner site (cgadelha.com); law school attendance also on ufc.com Q&A' },
+/** Tale of the tape, right panel: what she does now. */
+export const NOW_FACTS: Fact[] = [
+  { label: 'Role', value: 'UFC executive', verified: true, source: 'ufc.com — Senior Director, Jiu-Jitsu Strategy & Business Development (Jun 2025)' },
+  { label: 'Investing', value: '8-figure investor', verified: true, source: 'owner site (cgadelha.com)' },
+  { label: 'Trades', value: 'Stocks, crypto and options', verified: true, source: 'owner site (cgadelha.com)' },
+  { label: 'Jiu-Jitsu', value: '4th-degree black belt', verified: true, source: 'owner site (cgadelha.com)' },
+  { label: 'Education', value: 'Law graduate', verified: true, source: 'owner site (cgadelha.com)' },
+  { label: 'Teaches', value: 'Financial Education Program', verified: true, source: 'owner site (cgadelha.com)' },
 ]
 
 export interface Poster {

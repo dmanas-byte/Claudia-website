@@ -34,6 +34,12 @@ export function initScroll({ smooth }: { smooth: boolean }) {
     document.documentElement.classList.add('lenis', 'lenis-smooth')
   }
 
+  // animations finish on time even when frames are slow (low-end phones)
+  gsap.ticker.lagSmoothing(0)
+
+  // animations finish on time even when frames are slow (low-end phones)
+  gsap.ticker.lagSmoothing(0)
+
   let last = performance.now()
   gsap.ticker.add(() => {
     const now = performance.now()

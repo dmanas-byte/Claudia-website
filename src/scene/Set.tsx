@@ -8,7 +8,6 @@ import { Backpack } from './objects/Backpack'
 import { Octagon } from './objects/Octagon'
 import { Towers } from './objects/Towers'
 import { City } from './objects/City'
-import { GoldParticles } from './objects/GoldParticles'
 import { Constellation } from './objects/Constellation'
 import { TerminalWall } from './objects/TerminalWall'
 import { Phone } from './objects/Phone'
@@ -37,7 +36,6 @@ export function Set() {
       <GoldDust />
       <Octagon />
       <Backpack />
-      <GoldParticles />
       <Towers />
       <City />
       <Constellation />

@@ -103,7 +103,7 @@ export const useScroll = create<ScrollState>((set, get) => ({
       shot,
       shotProgress,
       shotFloat: shot + shotProgress,
-      ...(cut ? { flash: 1, cuts: s.cuts + 1 } : {}),
+      ...(cut ? { cuts: s.cuts + 1 } : {}),
     })
   },
 

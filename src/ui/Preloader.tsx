@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { PRELOADER } from '../content/copy'
-import { useScroll } from '../store/useScroll'
 import { useSettings } from '../store/useSettings'
 import { startScroll, stopScroll } from '../lib/scroll'
 
@@ -22,7 +21,6 @@ export function Preloader() {
     startScroll()
     setPreloaderDone()
     setIntroDone()
-    useScroll.getState().triggerFlash(1)
   }
 
   useEffect(() => {
@@ -36,7 +34,6 @@ export function Preloader() {
       timers.current.push(
         window.setTimeout(() => {
           setStep(s)
-          useScroll.getState().triggerFlash(0.9)
         }, t),
       )
     }

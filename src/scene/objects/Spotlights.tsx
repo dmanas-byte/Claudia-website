@@ -41,8 +41,8 @@ export function rangeLevel(sf: number, a: number, b: number, fade = 0.15) {
 export function spotLevel(r: SceneRead) {
   const sf = r.shotFloat
   const hero = rangeLevel(sf, 0, 3, 0.4)
-  // the backpack is gone by 03 local 0.9; let the spots idle down as the city rises
-  const heroDim = 1 - 0.75 * r.local(2, 0.3, 0.9)
+  // beat 3 of the journey: the spots idle down as the city rises
+  const heroDim = 1 - 0.75 * r.local(2, 0.66, 0.95)
   const corner = rangeLevel(sf, 7, 9, 0.2)
   const crane = rangeLevel(sf, 11, 12.5, 0.2)
   return Math.max(0.15, hero * heroDim, corner, crane)

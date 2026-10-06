@@ -45,19 +45,27 @@ export const HERO = {
 
 export const TAPE = {
   kicker: 'Tale of the tape',
-  left: 'The Fighter',
-  right: 'The Architect',
-  sub: BRAND.credentials,
+  name: 'Claudia “Claudinha” Gadelha',
+  left: 'In the cage',
+  right: 'Out of the cage',
 }
 
-export const BACKPACK = {
-  kicker: 'Born for the fight',
-  headline: 'A girl with a *backpack*. A self-made wealth architect.',
-  // owner copy, lightly condensed
-  story: [
-    'At 15, Claudia stood on the side of a highway with nothing but a dream and a backpack. She hitchhiked four hours to the closest Jiu-Jitsu gym she could find, slept on the floor and sold sandwiches on the beach to survive. That drive led her to train with José Aldo and Renan Barão, and into the UFC as one of the world’s top female fighters.',
-    'While most athletes are broke within two years of retirement, Claudia took a different path. She studied money, invested in real estate and mastered the stock market, building her financial education by 32.',
-    'Now a UFC executive and high-performance mentor, she created the Financial Education Program: the blueprint that turned a girl with a backpack into a self-made wealth architect.',
+/** SHOT 03 — her journey in three beats; each beat has its own picture in the scene. */
+export const JOURNEY = {
+  kicker: 'Her journey',
+  beats: [
+    {
+      line: 'From a girl with a backpack.',
+      body: 'At 15, Claudia stood on the side of a highway in Brazil with nothing but a dream and a backpack. She hitchhiked four hours to the closest Jiu-Jitsu gym she could find, slept on the floor and sold sandwiches on the beach to survive.',
+    },
+    {
+      line: 'To a UFC fighter.',
+      body: 'That drive took her to Nova União, training with José Aldo and Renan Barão, and into the UFC as one of the best strawweights in the world. In 2016 she fought Joanna Jędrzejczyk for the title.',
+    },
+    {
+      line: 'To a self-made *wealth* architect.',
+      body: 'While most athletes are broke within two years of retirement, Claudia studied money, invested in real estate and learned the stock market. Today she is a UFC executive, and she teaches that system in the Financial Education Program.',
+    },
   ],
   statNote: 'Owner’s site cites “78% of athletes are broke 2 years after retirement”. Source to be added before publishing the figure.',
 }
@@ -232,7 +240,6 @@ export const FOOTER = {
   contact: 'Contact',
   reduceMotion: 'Reduce motion',
   copyright: '© Claudia Gadelha Financial Education Program. All rights reserved.', // owner copy
-  sister: 'Premium health coaching →',
 }
 
 /**

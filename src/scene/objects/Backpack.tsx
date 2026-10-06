@@ -800,14 +800,14 @@ export function Backpack() {
     const r = readScene()
     const g = root.current
     if (!g) return
-    const gone = r.local(2, 0.4, 0.9)
-    g.visible = gone < 1
+    // The bag belongs to the first beat of her journey (SHOT 03): "From a girl
+    // with a backpack." It stays closed, and leaves before the city rises.
+    g.visible = r.shot === 2 && !r.reduced && r.shotProgress < 0.72
     if (!g.visible) return
-    const openRaw = r.local(2, 0, 0.45)
-    const open = openRaw * openRaw * (3 - 2 * openRaw)
-    const shrink = 1 - gone * gone
-    g.scale.set(shrink, shrink, shrink)
-    g.position.y = -gone * 0.15
+    const open = 0
+    const gone = 0
+    g.scale.set(1, 1, 1)
+    g.position.y = 0
 
     if (lid.current) lid.current.rotation.x = LID_REST_TILT * (1 - open) - open * LID_OPEN_ANGLE
     const glow = open * (1 + r.flash * 0.8)

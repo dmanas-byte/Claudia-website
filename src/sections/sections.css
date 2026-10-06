@@ -15,98 +15,164 @@
 /* ── 02 Tape ─────────────────────────────────────────────────────────────── */
 .tape {
   width: 100%;
-  max-width: 1100px;
+  max-width: 860px;
   display: grid;
-  gap: clamp(20px, 4vh, 40px);
-  justify-self: center;
-  padding: clamp(16px, 3vh, 28px) clamp(16px, 2.5vw, 36px);
-  background: rgba(7, 7, 10, 0.8);
+  gap: clamp(16px, 2.6vh, 28px);
+  padding: clamp(18px, 3vh, 30px) clamp(18px, 2.4vw, 34px);
+  background: rgba(7, 7, 10, 0.86);
   border: 1px solid var(--line);
   border-top: 2px solid var(--gold);
 }
 .tape__head {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: end;
-  gap: 16px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--gold-dim);
+  gap: 6px;
 }
 .tape__head h2 {
-  text-align: center;
+  text-transform: none;
+  letter-spacing: -0.02em;
 }
-.tape__col-title {
-  color: var(--ash);
+.tape__panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 clamp(20px, 3vw, 44px);
 }
-.tape__col-title--r {
-  text-align: right;
+.tape__panel {
+  min-width: 0;
+}
+.tape__panel-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gold);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--gold-dim);
+}
+.tape__panel-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
 }
 .tape__rows {
-  display: grid;
-  gap: 2px;
+  margin: 0;
 }
 .tape__row {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 72px 1fr;
-  align-items: center;
-  gap: 14px;
-  min-height: 56px;
-  padding: 10px 0;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: 12px;
+  padding: 11px 0;
   border-bottom: 1px solid var(--line);
   overflow: hidden;
 }
-.tape__cell {
+.tape__label {
+  color: var(--ash);
+}
+.tape__value {
+  margin: 0;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(1rem, 0.8rem + 1vw, 1.5rem);
+  font-size: clamp(1rem, 0.85rem + 0.5vw, 1.3rem);
   letter-spacing: -0.01em;
-  line-height: 1.15;
-}
-.tape__cell--r {
-  text-align: right;
-}
-.tape__label {
-  text-align: center;
-  color: var(--gold);
+  line-height: 1.2;
+  color: var(--bone);
 }
 .tape__scan {
   position: absolute;
-  inset: 0 auto 0 0;
-  width: 100%;
-  background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(210, 166, 75, 0.85) 50%, transparent);
   opacity: 0;
   pointer-events: none;
   transform: translateX(-100%);
 }
 @media (max-width: 720px) {
-  .tape {
-    text-align: left;
+  .tape__panels {
+    grid-template-columns: 1fr;
+    gap: 22px;
   }
   .tape__row {
-    grid-template-columns: 1fr;
-    gap: 4px;
-  }
-  .tape__label {
-    text-align: left;
-    order: -1;
-  }
-  .tape__cell--r {
-    text-align: left;
-    color: var(--gold);
-  }
-  .tape__head {
-    grid-template-columns: 1fr;
-  }
-  .tape__col-title {
-    display: none;
+    grid-template-columns: 6rem minmax(0, 1fr);
+    padding: 9px 0;
   }
 }
 
-/* ── 03 Backpack ─────────────────────────────────────────────────────────── */
-.backpack__headline {
-  max-width: 24ch;
-  font-size: var(--fs-display-md);
+/* ── 03 Journey ──────────────────────────────────────────────────────────── */
+.journey {
+  display: grid;
+  justify-items: start;
+  max-width: 44rem;
+}
+.journey__lines {
+  display: grid;
+  gap: 0.12em;
+  margin: 0 0 clamp(16px, 2.6vh, 28px);
+  font-size: clamp(1.85rem, 0.9rem + 2.4vw, 3.3rem);
+  line-height: 1.02;
+}
+.journey__line {
+  display: block;
+  color: var(--ash);
+  transition: color 0.45s ease;
+}
+.journey__line .accent {
+  color: inherit;
+  transition: color 0.45s ease;
+}
+.journey[data-beat='1'] .journey__line[data-line='1'],
+.journey[data-beat='2'] .journey__line[data-line='1'],
+.journey[data-beat='2'] .journey__line[data-line='2'],
+.journey[data-beat='3'] .journey__line {
+  color: var(--bone);
+}
+.journey[data-beat='3'] .journey__line[data-line='3'] .accent {
+  color: var(--gold);
+}
+/* the line for the current beat leads; earlier lines stay lit, later ones wait */
+.journey[data-beat='2'] .journey__line[data-line='1'],
+.journey[data-beat='3'] .journey__line[data-line='1'],
+.journey[data-beat='3'] .journey__line[data-line='2'] {
+  color: #c9c4ba;
+}
+.journey__story {
+  display: grid;
+  max-width: 36rem;
+}
+.journey__para {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+}
+.journey[data-beat='1'] .journey__para[data-para='1'],
+.journey[data-beat='2'] .journey__para[data-para='2'],
+.journey[data-beat='3'] .journey__para[data-para='3'] {
+  opacity: 1;
+  transform: none;
+}
+.journey__steps {
+  display: flex;
+  gap: 18px;
+  margin-top: clamp(16px, 2.4vh, 26px);
+  color: var(--ash);
+}
+.journey__steps li {
+  padding-top: 8px;
+  border-top: 2px solid var(--line);
+  transition:
+    color 0.3s,
+    border-color 0.3s;
+}
+.journey[data-beat='1'] [data-step='1'],
+.journey[data-beat='2'] [data-step='2'],
+.journey[data-beat='3'] [data-step='3'] {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+html[data-motion='reduce'] .journey__para {
+  transition: none;
 }
 
 /* ── 04 Record ───────────────────────────────────────────────────────────── */
@@ -584,28 +650,6 @@
   width: 6px;
   height: 1px;
   background: var(--gold);
-}
-.tape__sub {
-  margin-top: 6px;
-  text-align: center;
-}
-.backpack__story {
-  display: grid;
-  gap: 14px;
-  max-width: 40rem;
-}
-.backpack__para {
-  /* unlit paragraphs stay readable (ash ≥ 4.5:1); lit ones go bone */
-  color: var(--ash);
-  transition: color 0.5s var(--ease-out-power2);
-  font-size: var(--fs-body-sm);
-}
-.backpack[data-step='1'] .backpack__para[data-para='1'],
-.backpack[data-step='2'] .backpack__para[data-para='1'],
-.backpack[data-step='2'] .backpack__para[data-para='2'],
-.backpack[data-step='3'] .backpack__para,
-html[data-motion='reduce'] .backpack__para {
-  color: var(--bone);
 }
 .terminal {
   width: 100%;
