@@ -92,6 +92,20 @@ Query params for manual testing: `?nointro` (skip the cold open), `?nosmooth`
 Fonts: Clash Display and Satoshi are self-hosted in `public/fonts` (ITF Free Font
 License via Fontshare); JetBrains Mono and Instrument Serif come from fontsource.
 
+## Measured (production build, Oct 2026)
+
+| check                                   | result                                              |
+| --------------------------------------- | --------------------------------------------------- |
+| Lighthouse desktop                      | Accessibility 100 · Best practices 100 · SEO 100    |
+| Largest contentful paint                | 1.7 s (hero type, fonts preloaded)                  |
+| Cumulative layout shift                 | 0                                                   |
+| First-load JS, gzipped, excluding three | ≈ 139 KB (three.js chunk ≈ 267 KB, loaded after first paint) |
+| Page weight excluding below-the-fold photos | ≈ 2.2 MB                                        |
+| WebGL draw calls per frame              | 36 – 59 across the twelve shots                     |
+
+Lighthouse's performance score is not meaningful in a software-rendered
+(SwiftShader) container; measure it on a real GPU.
+
 ## Accessibility and motion
 
 - One `h1`, landmarks, labelled forms with live error messages, skip link, gold focus rings, canvas `aria-hidden`.
