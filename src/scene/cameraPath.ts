@@ -36,6 +36,8 @@ export const CAMERA: ShotCamera[] = [
     to: { pos: [0.7, 1.12, 3.35], target: [-0.78, -0.08, 0], fov: 42 },
     ease: linear,
     still: { pos: [0.85, 1.16, 3.8], target: [-0.84, -0.1, 0], fov: 42 },
+    // phones: the bag sits in the top half, copy below it
+    portrait: { pos: [0.35, 1.3, 3.9], target: [-0.05, 0.55, 0], fov: 42 },
   },
   // 02 — Tale of the Tape: 25° orbit around the backpack (copy is centred, so the bag sits low)
   {

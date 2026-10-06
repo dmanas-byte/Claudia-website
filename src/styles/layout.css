@@ -216,6 +216,10 @@ textarea.field__input {
   .shot--01 .shot__frame {
     padding-top: 34vh;
   }
+  /* the hero bag reads from the front on phones (no copy beside it) */
+  .shot--01 .hero {
+    width: 100%;
+  }
   .shot__frame {
     padding-bottom: calc(var(--gutter-y) + 84px); /* sticky CTA clearance */
   }
