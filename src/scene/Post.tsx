@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { EffectComposer, Bloom, ChromaticAberration, Vignette } from '@react-three/postprocessing'
-import { BlendFunction } from 'postprocessing'
+import { EffectComposer, Bloom, ChromaticAberration, Vignette, ToneMapping } from '@react-three/postprocessing'
+import { BlendFunction, ToneMappingMode } from 'postprocessing'
 import * as THREE from 'three'
 import { useScroll } from '../store/useScroll'
 import type { BloomEffect, ChromaticAberrationEffect } from 'postprocessing'
@@ -28,9 +28,10 @@ export function Post() {
 
   return (
     <EffectComposer multisampling={0} enableNormalPass={false}>
-      <Bloom ref={bloom} mipmapBlur intensity={0.75} luminanceThreshold={0.72} luminanceSmoothing={0.2} radius={0.7} />
+      <Bloom ref={bloom} mipmapBlur intensity={0.75} luminanceThreshold={0.85} luminanceSmoothing={0.2} radius={0.7} />
       <ChromaticAberration ref={ca} blendFunction={BlendFunction.NORMAL} offset={offset.current} radialModulation modulationOffset={0.3} />
       <Vignette eskil={false} offset={0.22} darkness={0.75} />
+      <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
     </EffectComposer>
   )
 }

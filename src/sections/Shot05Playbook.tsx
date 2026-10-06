@@ -34,15 +34,16 @@ export function Shot05Playbook() {
       return
     }
     const tl = gsap.timeline()
-    tl.fromTo(card, { rotateY: 90, opacity: 0 }, { rotateY: 0, opacity: 1, duration: 0.7, ease: 'back.out(1.4)' })
-    tl.fromTo(body, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.07 }, '-=0.45')
+    tl.fromTo(card, { rotateY: 90, opacity: 0 }, { rotateY: 0, opacity: 1, duration: 0.7, ease: 'back.out(1.4)', overwrite: true })
+    tl.fromTo(body, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.07, overwrite: true }, '-=0.45')
     return () => {
       tl.kill()
+      gsap.set([card, body], { clearProps: 'opacity,transform' })
     }
   }, [active, reduced])
 
   return (
-    <Shot id="05" frame="bottom-left" label="The program — six rounds">
+    <Shot id="05" frame="bottom-left" label="The program — six rounds" scrim="left">
       <div className="playbook">
         <div className="playbook__intro">
           <p className="shot__kicker mono">{PLAYBOOK.kicker}</p>

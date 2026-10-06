@@ -6,7 +6,7 @@ import { ApplyForm } from '../ui/forms/ApplyForm'
 
 export function Shot10Apply() {
   return (
-    <Shot id="10" frame="center-left" label="Apply to work with Claudia" className="shot--form">
+    <Shot id="10" frame="center-left" label="Apply to work with Claudia" className="shot--form" scrim="full">
       <div className="apply">
         <div className="apply__top">
           <div>

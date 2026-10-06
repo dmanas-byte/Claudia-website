@@ -5,7 +5,7 @@ import { scrollToAnchor } from '../lib/scroll'
 
 export function Shot12Finale() {
   return (
-    <Shot id="12" frame="center" label="Your walkout starts here">
+    <Shot id="12" frame="center" label="Your walkout starts here" scrim="center">
       <h2 className="display display--xl shot__headline finale__headline" style={{ justifySelf: 'center' }}>
         <Accent text={FINALE.headline} />
       </h2>

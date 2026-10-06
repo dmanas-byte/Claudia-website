@@ -11,13 +11,61 @@
   min-height: 100svh;
 }
 .shot__pin {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  inset: 0;
   height: 100vh;
   height: 100svh;
   width: 100%;
   display: grid;
   overflow: hidden;
+  z-index: var(--z-content);
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+.shot.is-active > .shot__pin {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+/* reduced motion: stills cross-fade instead of cutting */
+html[data-motion='reduce'] .shot__pin {
+  transition: opacity 0.3s ease, visibility 0.3s !important;
+  transition-duration: 0.3s !important;
+}
+/* scrim: darken the copy side when the set behind is bright */
+.shot--scrim > .shot__pin::before,
+.shot--scrim.shot--flow > .shot__frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.shot--scrim-left > .shot__pin::before,
+.shot--scrim-left.shot--flow > .shot__frame::before {
+  background: linear-gradient(90deg, rgba(7, 7, 10, 0.86) 0%, rgba(7, 7, 10, 0.62) 38%, rgba(7, 7, 10, 0.15) 62%, transparent 80%);
+}
+.shot--scrim-right > .shot__pin::before {
+  background: linear-gradient(270deg, rgba(7, 7, 10, 0.86) 0%, rgba(7, 7, 10, 0.62) 38%, rgba(7, 7, 10, 0.15) 62%, transparent 80%);
+}
+.shot--scrim-full > .shot__pin::before,
+.shot--scrim-full.shot--flow > .shot__frame::before {
+  background: linear-gradient(180deg, rgba(7, 7, 10, 0.55), rgba(7, 7, 10, 0.72));
+}
+.shot--scrim-center > .shot__pin::before {
+  background: radial-gradient(ellipse 60% 55% at 50% 50%, rgba(7, 7, 10, 0.82) 0%, rgba(7, 7, 10, 0.6) 45%, transparent 100%);
+}
+.shot--scrim .shot__frame > * {
+  position: relative;
+  z-index: 1;
+}
+.shot--scrim .display,
+.shot--scrim .lede {
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.55);
+}
+.shot--flow {
+  position: relative;
 }
 .shot__frame {
   position: relative;

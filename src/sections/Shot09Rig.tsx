@@ -27,7 +27,7 @@ export function Shot09Rig() {
   const personaOn = Math.min(4, Math.floor(lit / 7.5) + (lit > 0 ? 1 : 0))
 
   return (
-    <Shot id="09" frame="center-left" label="Is this for me?">
+    <Shot id="09" frame="center-left" label="Is this for me?" scrim="full">
       <div className="rig">
         <div className="rig__intro">
           <p className="shot__kicker mono">{RIG.kicker}</p>

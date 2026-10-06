@@ -13,7 +13,7 @@ export function Shot11Proof() {
     return <section id="proof" data-shot="11" className="shot shot--11" style={{ minHeight: 0, height: 0 }} aria-hidden="true" />
   }
   return (
-    <Shot id="11" frame="center-left" label="Testimonials and community proof">
+    <Shot id="11" frame="center-left" label="Testimonials and community proof" scrim="full">
       <div className="proof">
         <div>
           <p className="shot__kicker mono">{PROOF.kicker}</p>

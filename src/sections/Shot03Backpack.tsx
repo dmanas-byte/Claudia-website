@@ -23,7 +23,7 @@ export function Shot03Backpack() {
     return unsub
   }, [])
   return (
-    <Shot id="03" frame="center-left" label="The backpack — her story">
+    <Shot id="03" frame="center-left" label="The backpack — her story" scrim="left">
       <div className="backpack" ref={ref} data-step="0">
         <p className="shot__kicker mono">{BACKPACK.kicker}</p>
         <h2 className="display display--md shot__headline backpack__headline">

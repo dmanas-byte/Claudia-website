@@ -1,5 +1,6 @@
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
+import * as THREE from 'three'
 import { useSettings } from '../store/useSettings'
 import { useScroll } from '../store/useScroll'
 import { CameraRig } from './CameraRig'
@@ -46,6 +47,8 @@ export default function Scene() {
         frameloop="always"
         onCreated={({ gl }) => {
           gl.setClearColor('#07070a', 1)
+          gl.toneMapping = THREE.ACESFilmicToneMapping
+          gl.toneMappingExposure = 1
         }}
       >
         <color attach="background" args={['#07070a']} />

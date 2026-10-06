@@ -65,7 +65,7 @@ export function Towers() {
     })
     const capGeo = new THREE.BoxGeometry(W + 0.12, 0.14, W + 0.12)
     capGeo.translate(0, 0.07, 0)
-    const capMat = new THREE.MeshBasicMaterial({ color: GOLD.clone().multiplyScalar(1.5), fog: true })
+    const capMat = new THREE.MeshBasicMaterial({ color: GOLD.clone().multiplyScalar(0.75), fog: true })
     const beaconGeo = new THREE.SphereGeometry(0.16, 8, 6)
     const beaconMat = new THREE.MeshBasicMaterial({ color: EMBER.clone().multiplyScalar(2.2), fog: true })
     return { geo, mat, capGeo, capMat, beaconGeo, beaconMat, posts: postPositions() }

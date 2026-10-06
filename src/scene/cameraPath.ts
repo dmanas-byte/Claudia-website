@@ -27,17 +27,24 @@ const [px, py, pz] = WORLD.phone.center
  * boundary is a hard cut (the Flash covers it); otherwise it's continuous.
  */
 export const CAMERA: ShotCamera[] = [
-  // 01 — The Walkout: eye height, slow dolly toward the backpack
-  { from: { pos: [0, 1.6, 4.6], target: [0, 0.45, 0], fov: 42 }, to: { pos: [0, 1.5, 3.3], target: [0, 0.4, 0], fov: 42 }, ease: linear },
-  // 02 — Tale of the Tape: 25° orbit around the backpack
+  // 01 — The Walkout: eye height, slow dolly toward the backpack, which sits
+  // right of centre and above the copy block (the copy is bottom-left)
   {
-    from: { pos: [0, 1.5, 3.3], target: [0, 0.4, 0], fov: 42 },
-    via: [{ pos: [0.75, 1.55, 3.22], target: [0, 0.4, 0] }],
-    to: { pos: [1.42, 1.6, 3.04], target: [0, 0.4, 0], fov: 42 },
+    from: { pos: [0.95, 1.2, 4.15], target: [-0.9, -0.12, 0], fov: 42 },
+    to: { pos: [0.7, 1.12, 3.35], target: [-0.78, -0.08, 0], fov: 42 },
+    ease: linear,
+    still: { pos: [0.85, 1.16, 3.8], target: [-0.84, -0.1, 0], fov: 42 },
+  },
+  // 02 — Tale of the Tape: 25° orbit around the backpack (copy is centred, so the bag sits low)
+  {
+    from: { pos: [0.7, 1.12, 3.35], target: [-0.78, -0.08, 0], fov: 42 },
+    via: [{ pos: [1.5, 1.3, 3.1], target: [-0.4, 0.35, 0] }],
+    to: { pos: [2.3, 1.45, 2.6], target: [-0.1, 0.55, 0], fov: 42 },
+    still: { pos: [1.6, 1.35, 3.3], target: [-0.3, 0.4, 0], fov: 42 },
   },
   // 03 — The Backpack: crane up 30 m and tilt down; arena → city block
   {
-    from: { pos: [1.42, 1.6, 3.04], target: [0, 0.4, 0], fov: 42 },
+    from: { pos: [2.3, 1.45, 2.6], target: [-0.1, 0.55, 0], fov: 42 },
     via: [{ pos: [3.2, 9, 7.5], target: [0, 1.5, 0] }],
     to: { pos: [0.5, 32, 11], target: [0, 0, 0], fov: 48 },
     still: { pos: [3.2, 12, 9], target: [0, 2, 0], fov: 46 },
@@ -62,17 +69,17 @@ export const CAMERA: ShotCamera[] = [
     to: { pos: [tx - 4, 2.6, tz + 11], target: [tx, ty, tz], fov: 46 },
     still: { pos: [tx, 2.4, tz + 13], target: [tx, ty - 0.5, tz], fov: 46 },
   },
-  // 07 — The Alert: nearly black, a phone in front of the lens
+  // 07 — The Alert: nearly black, the phone fills the right of the frame (copy is centre-left)
   {
-    from: { pos: [px, py, pz + 1.9], target: [px, py, pz], fov: 40 },
-    to: { pos: [px + 0.15, py + 0.05, pz + 1.6], target: [px, py, pz], fov: 40 },
-    still: { pos: [px, py, pz + 1.7], target: [px, py, pz], fov: 40 },
+    from: { pos: [px - 0.17, py + 0.01, pz + 0.72], target: [px - 0.17, py + 0.01, pz], fov: 40 },
+    to: { pos: [px - 0.15, py + 0.02, pz + 0.56], target: [px - 0.15, py + 0.02, pz], fov: 40 },
+    still: { pos: [px - 0.16, py + 0.015, pz + 0.62], target: [px - 0.16, py + 0.015, pz], fov: 40 },
   },
-  // 08 — The Corner: pull back to reveal the bowl of seats
+  // 08 — The Corner: pull up and back, staying above the bowl so the seats read as a crowd
   {
-    from: { pos: [0, 5, 13], target: [0, 2, 0], fov: 46 },
-    to: { pos: [0, 19, 36], target: [0, 3, 0], fov: 50 },
-    still: { pos: [0, 12, 25], target: [0, 3, 0], fov: 48 },
+    from: { pos: [0, 7, 6], target: [0, 1.5, 0], fov: 46 },
+    to: { pos: [0, 30, 33], target: [0, 4, 0], fov: 52 },
+    still: { pos: [0, 20, 22], target: [0, 3, 0], fov: 50 },
   },
   // 09 — The Rig: looking up at the lighting rig as it powers on
   {
@@ -84,12 +91,12 @@ export const CAMERA: ShotCamera[] = [
   { from: { pos: [-9, 2.4, 3], target: [0, 3, 0], fov: 44 }, to: { pos: [-8, 2.8, 5], target: [0, 3.5, 0], fov: 44 } },
   // 11 — Proof wall
   { from: { pos: [9, 3, 4], target: [0, 2.5, 0], fov: 44 }, to: { pos: [10, 4, 6], target: [0, 3, 0], fov: 44 } },
-  // 12 — The Crane: up and back until the whole set is visible
+  // 12 — The Crane: up and back until the whole set is visible, constellation in frame
   {
-    from: { pos: [0, 12, 26], target: [0, 4, 0], fov: 46 },
-    to: { pos: [0, 62, 74], target: [0, 6, 0], fov: 50 },
+    from: { pos: [0, 14, 30], target: [0, 10, 0], fov: 46 },
+    to: { pos: [0, 66, 78], target: [0, 18, 0], fov: 50 },
     ease: easeInOutCubic,
-    still: { pos: [0, 50, 60], target: [0, 6, 0], fov: 50 },
+    still: { pos: [0, 54, 64], target: [0, 16, 0], fov: 50 },
   },
 ]
 

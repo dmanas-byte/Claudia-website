@@ -28,10 +28,12 @@ export function Shot07Alert() {
         tl.to(el, { y: 0, opacity: 1, duration: 0.45, ease: 'power3.out' })
         tl.to(document.documentElement, { '--ember-flash': 1, duration: 0.04, ease: 'steps(1)' }, 0.1)
         tl.to(document.documentElement, { '--ember-flash': 0, duration: 0.04 }, 0.14)
-        // 2-frame screen shake on the main column
-        tl.fromTo('#main', { x: 0 }, { x: 6, duration: 1 / 60, ease: 'steps(1)' }, 0.1)
-        tl.to('#main', { x: -5, duration: 1 / 60, ease: 'steps(1)' })
-        tl.to('#main', { x: 0, duration: 1 / 60, ease: 'steps(1)' })
+        // 2-frame screen shake: the canvas and this shot's own frame (never #main —
+        // a transform there would re-parent every fixed frame)
+        const shaken = ['.scene', '.shot--07 .shot__frame']
+        tl.fromTo(shaken, { x: 0 }, { x: 6, duration: 1 / 60, ease: 'steps(1)' }, 0.1)
+        tl.to(shaken, { x: -5, duration: 1 / 60, ease: 'steps(1)' })
+        tl.to(shaken, { x: 0, duration: 1 / 60, ease: 'steps(1)', clearProps: 'transform' })
       } else if (!inBeat && s.shot !== 6 && !armed) {
         armed = true
         gsap.set(el, { y: -40, opacity: 0 })

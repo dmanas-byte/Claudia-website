@@ -3,8 +3,9 @@ import { TAPE } from '../content/copy'
 import { ARCHITECT_FACTS, FIGHTER_FACTS } from '../content/facts'
 import { Shot } from '../ui/Shot'
 import { FactValue } from '../ui/VerifyTag'
-import { gsap, ScrollTrigger } from '../lib/scroll'
+import { gsap } from '../lib/scroll'
 import { useSettings } from '../store/useSettings'
+import { useScroll } from '../store/useScroll'
 
 /** Broadcast lower-third: rows wipe in with a gold scanline (0.5s power3.inOut, stagger 0.07). */
 export function Shot02Tape() {
@@ -23,9 +24,7 @@ export function Shot02Tape() {
     }
     gsap.set(cells, { opacity: 0 })
     gsap.set(head, { scaleX: 0, transformOrigin: 'center' })
-    const tl = gsap.timeline({
-      scrollTrigger: { trigger: el.closest('section'), start: 'top 60%', toggleActions: 'play none none none' },
-    })
+    const tl = gsap.timeline({ paused: true })
     tl.to(head, { scaleX: 1, duration: 0.6, ease: 'power3.inOut' })
     rows.forEach((row, i) => {
       const at = 0.2 + i * 0.07
@@ -34,10 +33,24 @@ export function Shot02Tape() {
       tl.to(rowCells, { opacity: 1, duration: 0.25, ease: 'power2.out' }, at + 0.22)
       tl.set(scans[i], { opacity: 0 }, at + 0.5)
     })
+    // play once, the first time SHOT 02 becomes the current shot
+    let played = false
+    const check = (shot: number) => {
+      if (!played && shot === 1) {
+        played = true
+        tl.play(0)
+      }
+      // if the visitor lands past the tape (deep link), show it complete
+      if (!played && shot > 1) {
+        played = true
+        tl.progress(1)
+      }
+    }
+    check(useScroll.getState().shot)
+    const unsub = useScroll.subscribe((s) => check(s.shot))
     return () => {
-      tl.scrollTrigger?.kill()
+      unsub()
       tl.kill()
-      ScrollTrigger.refresh()
     }
   }, [reduced])
 

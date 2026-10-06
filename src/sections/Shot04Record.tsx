@@ -42,7 +42,7 @@ export function Shot04Record() {
   }, [native])
 
   return (
-    <Shot id="04" frame="center-left" label="Her story — the record">
+    <Shot id="04" frame="center-left" label="Her story — the record" scrim="full">
       <div className="record">
         <div className="record__head">
           <h2 className="display display--md">

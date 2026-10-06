@@ -25,8 +25,8 @@ export const WORLD = {
   phone: { center: [22, 1.6, -22] as [number, number, number] },
   /** arena bowl seats for SHOT 08 */
   seats: { innerRadius: 11, outerRadius: 26, rows: 18 },
-  /** gold constellation for SHOT 12 */
-  constellation: { center: [0, 26, 0] as [number, number, number], size: 9 },
+  /** gold constellation for SHOT 12 (above the tower ring so the crane shot reads it) */
+  constellation: { center: [0, 46, 0] as [number, number, number], size: 14 },
 } as const
 
 export const postPositions = (): [number, number, number][] =>
@@ -45,7 +45,9 @@ export const STREET = { x: 0, y: 1.7, zStart: 14, zEnd: -14 }
 export const roundPosition = (n: number): [number, number, number] => {
   const t = (n - 0.5) / ROUND_COUNT
   const z = STREET.zStart + (STREET.zEnd - STREET.zStart) * t - 3.2
-  const x = n % 2 === 1 ? -1.35 : 1.35
+  // just right of the street axis (the copy block is bottom-left); the hero
+  // towers occupy |x| 0.8–3.0 at |z| 3.5–5.7, so anything further out is swallowed
+  const x = 0.68
   return [x, 1.55, z]
 }
 /** 0..1 how "present" round n is at shot-05 progress p (1 at its center beat) */
@@ -53,5 +55,6 @@ export const roundPresence = (p: number, n: number) => {
   const c = (n - 0.5) / ROUND_COUNT
   const half = 0.5 / ROUND_COUNT
   const d = Math.abs(p - c) / half
-  return Math.max(0, 1 - d)
+  // plateau: fully present for the middle 45 % of the beat, condensing in and out at the edges
+  return Math.max(0, Math.min(1, (1 - d) / 0.55))
 }

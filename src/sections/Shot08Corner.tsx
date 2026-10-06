@@ -26,7 +26,7 @@ export function Shot08Corner() {
   }, [])
 
   return (
-    <Shot id="08" frame="center-left" label="The framework — Liberdade">
+    <Shot id="08" frame="center-left" label="The framework — Liberdade" scrim="full">
       <div className="corner" ref={ref} data-lit="0">
         <div className="corner__intro">
           <p className="shot__kicker mono">{CORNER.kicker}</p>

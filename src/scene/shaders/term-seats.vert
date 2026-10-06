@@ -20,6 +20,6 @@ void main() {
   vec3 cool = vec3(0.85, 0.96, 1.0);
   vCol = mix(warm, cool, step(0.965, aSeed));
   float size = uSizeM * (0.8 + 0.4 * fract(aSeed * 13.7));
-  gl_PointSize = clamp(size * uScale / max(0.5, -mv.z), 1.5, 26.0);
+  gl_PointSize = clamp(size * uScale / max(0.5, -mv.z), 1.0, 9.0);
   gl_Position = projectionMatrix * mv;
 }
