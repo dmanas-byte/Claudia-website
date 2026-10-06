@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { detectWebGL, isLowPower, isTouchDevice, prefersReducedMotion } from '../lib/device'
+import { isLowPower, isTouchDevice, prefersReducedMotion } from '../lib/device'
 
 const LS_MOTION = 'walkout:motion'
 const LS_SOUND = 'walkout:sound'
@@ -9,7 +9,6 @@ export interface SettingsState {
   reducedMotion: boolean
   /** user explicitly toggled (persists) */
   motionOverride: boolean | null
-  webgl: boolean
   touch: boolean
   /** cheaper production: mobile / low-power */
   lowPower: boolean
@@ -41,7 +40,6 @@ export const useSettings = create<SettingsState>((set, get) => {
   return {
     reducedMotion: computeReduced(override),
     motionOverride: override,
-    webgl: detectWebGL(),
     touch: isTouchDevice(),
     lowPower: isLowPower(),
     sound: (() => {
@@ -93,7 +91,6 @@ export const useSettings = create<SettingsState>((set, get) => {
 export function initSettings() {
   const s = useSettings.getState()
   document.documentElement.dataset.motion = s.reducedMotion ? 'reduce' : 'full'
-  document.documentElement.dataset.webgl = s.webgl ? 'on' : 'off'
   const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
   const onChange = () => {
     if (useSettings.getState().motionOverride === null) {

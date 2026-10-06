@@ -1,20 +1,16 @@
-# THE WALKOUT — architecture contract
-
-Read `REDESIGN-PROMPT.md` for the brief. This file is the engineering contract
-every part of the build must respect.
+# Claudia Gadelha site — architecture
 
 ## Layers
 
 ```
-<Scene/>  fixed, z 0, one persistent <Canvas>, aria-hidden        src/scene
+<Film/>   fixed, z 0: full-bleed Higgsfield plates, one per beat     src/film
 <main/>   real DOM copy, z 10, one <section class="shot"> per shot  src/sections
-chrome    nav / belt / slate / letterbox / grain / flash / preloader src/ui
+chrome    nav / belt / slate / letterbox / grain / preloader         src/ui
 ```
 
-Text is never rendered inside WebGL. Every 3D object is always mounted and
-decides its own visibility per frame.
+All text is real DOM. The film layer is decorative (`aria-hidden`).
 
-## Scroll → scene
+## Scroll
 
 `src/store/useScroll.ts` is the single source of truth, updated every GSAP tick:
 
@@ -23,96 +19,53 @@ decides its own visibility per frame.
 | `progress`     | 0..1 over the whole document                         |
 | `shot`         | current shot index 0..11 (SHOT 01 = 0)               |
 | `shotProgress` | 0..1 inside the current shot                         |
-| `shotFloat`    | `shot + shotProgress` (e.g. 2.4 = 40 % into SHOT 03) |
-| `wind`         | 0..1 scroll speed (gold dust, chromatic aberration)  |
-| `flash`        | 0..1 hard-cut / cold-open energy, decays per frame   |
-| `pointer`      | −1..1 normalized pointer (follow-spot cursor)        |
+| `wind`         | 0..1 scroll speed (letterbox on fast scroll)         |
 
-Inside `useFrame`, call `readScene()` (`src/scene/useSceneUniforms.ts`):
+A shot becomes current once its section covers the middle of the viewport.
+Never subscribe React state to per-frame values; components subscribe and
+touch the DOM directly.
 
-```ts
-const r = readScene()
-r.local(2, 0.2, 0.8) // 0..1 between 20 % and 80 % of SHOT 03 (index 2); 0 before, 1 after
-r.span(2, 3)         // 0 at start of SHOT 03 → 1 at end of SHOT 04
-r.wind, r.flash, r.pointer, r.reduced, r.lowPower
-```
+## The film
 
-Never subscribe React state to per-frame values. Mutate uniforms / matrices in
-`useFrame`. Never call `set` on the store from the scene.
+`src/content/film.ts` lists every plate (id, what it shows and why, whether it
+has a video, mobile focus point) and `plateAt(shot, progress)` maps the scroll
+position to a plate. SHOT 03 switches between three plates at the journey
+beats (`JOURNEY_BEATS`, shared with the copy); SHOT 05 switches between six
+round plates.
 
-Gate shot membership on `r.shot` (plus `shotProgress`), not on `shotFloat`
-alone: for a pinned shot `shotFloat` reads exactly `i + 1` over the last
-viewport-height of the section while `shot` is still `i`.
+`src/film/Film.tsx` keeps every plate mounted at opacity 0, crossfades to the
+current one (0.9 s), lazy-loads each still when it is about to be needed, and
+plays a plate's looping video only while that plate is current. Inside a
+plate the picture drifts slowly with `--p` (local progress). Reduced motion:
+stills only, no drift, 0.3 s crossfades.
 
-## Shot indices
+Assets live in `public/film/` and are produced from the raw renders in `art/`
+(not committed) by `node scripts/process-art.mjs`: WebP stills at 1920 and
+1080 px, H.264 videos at 1600 and 1280 px, each video played forward then
+backward so the loop never jumps.
 
-| index | id  | title                | camera                                                             |
-| ----- | --- | -------------------- | ------------------------------------------------------------------ |
-| 0     | 01  | The Walkout          | eye height (0,1.6,4.6) → (0,1.5,3.3), looking at the backpack       |
-| 1     | 02  | Tale of the Tape     | 25° orbit around the backpack at r≈3.3                             |
-| 2     | 03  | The Backpack         | cranes from (1.4,1.6,3) up to (0.5,32,11), looks down at origin    |
-| 3     | 04  | The Record           | lateral glide x −14 → +14 at y≈27, z 16, looking at (0,9,−2)       |
-| 4     | 05  | The Playbook         | street level, walks z +14 → −14 at x 0, y 1.7 (see `roundPosition`) |
-| 5     | 06  | The Terminal         | street level in front of the wall at z −40                         |
-| 6     | 07  | The Alert            | nearly black; phone at `WORLD.phone.center`, camera 1.6–1.9 m away |
-| 7     | 08  | The Corner           | pulls back from (0,5,13) to (0,19,36) to reveal the seats          |
-| 8     | 09  | 30-Day Challenge     | low, looking up at the light rig at y 14                           |
-| 9     | 10  | Apply                | ground level by the octagon, (−9,2.4,3)                            |
-| 10    | 11  | Proof wall           | (gated off by default, zero height)                                |
-| 11    | 12  | The Crane            | (0,12,26) → (0,62,74), whole set visible                           |
-
-Camera keys live in `src/scene/cameraPath.ts`; world constants in
-`src/scene/world.ts` (`WORLD`, `postPositions()`, `roundPosition(n)`,
-`roundPresence(p, n)`). Objects import from there; nobody hardcodes positions.
-
-## Scene composition
-
-`src/scene/Set.tsx` mounts every object. Each object file exports one named
-component with no required props (`export function Towers()`), reads
-`readScene()` in `useFrame`, and owns its own materials/shaders. Shaders are
-`.glsl/.vert/.frag` files in `src/scene/shaders/` imported as strings
-(vite-plugin-glsl; `#include` works).
-
-Global state that objects must NOT touch: renderer exposure (`Mood.tsx`),
-tone mapping (ACES, set once in `Scene.tsx` and applied again as the last
-composer pass in `Post.tsx` so exposure behaves the same with and without
-postprocessing), the camera (`CameraRig.tsx`; `portrait` keys in
-`cameraPath.ts` override a shot's framing on phones), postprocessing.
-
-## Pinned frames are hard cuts
+## Pinned frames
 
 A pinned shot's `.shot__pin` is `position: fixed` and only visible while that
-shot is current (`.shot.is-active`, toggled from the scroll store without a
-React render). Never put a CSS transform on `#main` or any ancestor of the
-frames: it would become their containing block and break every fixed frame.
-Shots that fly through the lit city pass `scrim="left" | "full" | "center"`
-to `<Shot>` to darken the copy side.
-
-## Budgets (desktop / mobile)
-
-- draw calls < 150; all repeated geometry instanced
-- particles: 40k desktop / 8k mobile (`r.lowPower`)
-- smoke at half resolution on mobile; postprocessing desktop only (already gated)
-- `r.reduced`: freeze time-based animation, no particles/smoke motion, keep
-  the still composition readable
-- no textures from disk; everything procedural
+shot is current (`.shot.is-active`), cross-fading in and out. Never put a CSS
+transform on `#main` or any ancestor of the frames. Shots whose picture sits
+behind the copy pass `scrim="left" | "full" | "center"` to `<Shot>`.
 
 ## DOM conventions
 
 - One `h1` (hero). Section headings are `h2`.
 - Copy lives in `src/content/copy.ts`, facts in `facts.ts`, unknowns in
-  `placeholders.ts`. Components never contain copy strings.
+  `placeholders.ts`, plates in `film.ts`. Components never contain copy strings.
 - `*word*` in copy renders the italic serif accent via `<Accent/>`.
-- Unknown values render through `<Token/>` or `ImageSlotFrame`.
-- Disclaimers: `<Disclaimer/>` under Terminal and Apply, long form in Footer.
+- Disclaimers: `<Disclaimer/>` under the Terminal and Apply shots, long form in the footer.
 
 ## QA
 
 ```
-npm run dev                      # http://localhost:5173
-npx tsc -b                       # typecheck (run before you hand off)
-npm run shots -- --at 12,18 --viewport desktop --out screenshots/mine \
-    --qa-fonts $QA_FONTS_CSS     # look at the PNGs; fix what looks wrong
+npm run dev
+npx tsc -b
+npm run shots -- --shots "03:0.15,03:0.5" --viewport desktop --out screenshots/mine
 ```
 
-Query params for QA: `?nointro` `?nosmooth` `?motion=reduce` `?nowebgl` `?lowpower`.
+`--shots "<id>:<progress>"` places the page inside a shot. Query params:
+`?nointro` `?nosmooth` `?motion=reduce` `?lowpower`.

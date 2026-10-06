@@ -13,7 +13,7 @@ export function Shot06Terminal() {
       <div className="terminal">
         <div>
           <p className="shot__kicker mono">{TERMINAL.kicker}</p>
-          <h2 className="display display--lg shot__headline shot__headline--wide">
+          <h2 className="display display--md shot__headline shot__headline--wide">
             <Accent text={TERMINAL.headline} />
           </h2>
           <p className="lede shot__copy">{TERMINAL.body}</p>

@@ -1,9 +1,9 @@
 # Claudia Gadelha — The Walkout
 
-A cinematic rebuild of [cgadelha.com](https://www.cgadelha.com): one continuous
-WebGL camera move through a dark arena that becomes a city of light, with every
-line of copy as real DOM text on top. Vite + React + TypeScript, three.js via
-react-three-fiber, GSAP ScrollTrigger, Lenis. Static site, no backend.
+A cinematic rebuild of [cgadelha.com](https://www.cgadelha.com): her story told
+as a film you scroll through, one Higgsfield-generated picture per beat, with
+every line of copy as real DOM text on top. Vite + React + TypeScript, GSAP,
+Lenis. Static site, no backend.
 
 ## Run it
 
@@ -49,6 +49,7 @@ Everything a visitor reads lives in `src/content/`:
 | `placeholders.ts`   | image slots (`src` per slot), community-proof images, placeholder tokens  |
 | `links.ts`          | socials (only those cgadelha.com links to) and secondary pages            |
 | `shots.ts`          | the shot list: order, slate titles, anchors, scroll length per shot       |
+| `film.ts`           | the scroll pictures: which plate shows where, and why                     |
 
 Wrap one word in `*asterisks*` inside a headline to set it in the italic serif accent.
 
@@ -70,58 +71,50 @@ Anything we could not confirm renders as a visible dashed token, e.g.
 src/
   content/     copy, facts, placeholders, links, shot list
   sections/    one DOM component per shot (SHOT 01–12) + Footer
-  scene/       the WebGL set: Scene, CameraRig, cameraPath, Set, objects/, shaders/
+  film/        the scroll pictures layer (crossfading Higgsfield plates)
   ui/          nav, belt, slate, letterbox, grain, flash, preloader, forms
   pages/       /speaking, /calculator, /links, /privacy, /terms
   store/       scroll store (progress → camera + uniforms) and settings
-  fallback/    SVG set for browsers without WebGL
 scripts/
   screenshot.ts      frames at every 10 % of scroll, desktop + mobile
   fetch-fonts.mjs    self-host Clash Display + Satoshi
   fetch-site-images.mjs  pull images from the live site into public/images
+  process-art.mjs    raw Higgsfield renders in art/ → public/film (WebP + MP4)
   mock-endpoint.mjs  local echo endpoint for the forms
 ```
 
-See `ARCHITECTURE.md` for how scroll drives the camera and shaders.
+See `ARCHITECTURE.md` for how scroll drives the pictures.
+
+### Swap a scroll picture
+
+Each beat's picture is `public/film/<id>-1920.webp` and `-1080.webp` (plus
+`<id>.mp4` and `-720.mp4` for the hero, the backpack, the trading floor and the
+finale). Replace the files with the same names, or put a new render in `art/raw/`,
+point `scripts/process-art.mjs` at it and run `node scripts/process-art.mjs`.
+`src/content/film.ts` says what each picture shows and why it is there.
 
 ## QA
 
 ```bash
 npm run shots                                   # screenshots/ at 0,10,…100 %
 npm run shots -- --query "motion=reduce"        # reduced-motion stills
-npm run shots -- --query "nowebgl"              # SVG fallback
 npm run shots -- --at 12,18 --viewport mobile   # specific frames
 ```
 
 Query params for manual testing: `?nointro` (skip the cold open), `?nosmooth`
-(native scroll), `?motion=reduce`, `?nowebgl`, `?lowpower`.
+(native scroll), `?motion=reduce`, `?lowpower`.
 
 Fonts: Clash Display and Satoshi are self-hosted in `public/fonts` (ITF Free Font
 License via Fontshare); JetBrains Mono and Instrument Serif come from fontsource.
 
-## Measured (production build, Oct 2026)
-
-| check                                   | result                                              |
-| --------------------------------------- | --------------------------------------------------- |
-| Lighthouse desktop                      | Accessibility 100 · Best practices 100 · SEO 100    |
-| Largest contentful paint                | 1.7 s (hero type, fonts preloaded)                  |
-| Cumulative layout shift                 | 0                                                   |
-| First-load JS, gzipped, excluding three | ≈ 139 KB (three.js chunk ≈ 267 KB, loaded after first paint) |
-| Page weight excluding below-the-fold photos | ≈ 2.2 MB                                        |
-| WebGL draw calls per frame              | 36 – 59 across the twelve shots                     |
-
-Lighthouse's performance score is not meaningful in a software-rendered
-(SwiftShader) container; measure it on a real GPU.
-
 ## Accessibility and motion
 
 - One `h1`, landmarks, labelled forms with live error messages, skip link, gold focus rings, canvas `aria-hidden`.
-- `prefers-reduced-motion` or the footer toggle: no smooth scroll, no scrubbed animation, static stills per shot that cross-fade.
-- No WebGL: an SVG arena-to-skyline set with the same type and layout.
+- `prefers-reduced-motion` or the footer toggle: no smooth scroll, no drift, no video; stills cross-fade.
 
 ## Legal
 
 The disclaimer text in `copy.ts` (`DISCLAIMER`, `DISCLAIMER_LONG`) is marked
 `[OWNER'S COUNSEL TO REVIEW WORDING]`. Privacy and Terms pages have headings and
-`[OWNER TO SUPPLY]` bodies. All market data in the visuals is procedurally
-generated and labelled "SAMPLE".
+`[OWNER TO SUPPLY]` bodies. Screens in the generated pictures are out of focus and carry no real data; the
+sections around them are labelled as sample data.

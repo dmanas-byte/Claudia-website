@@ -60,7 +60,7 @@ html[data-motion='reduce'] .shot__pin {
   background: linear-gradient(180deg, rgba(7, 7, 10, 0.68), rgba(7, 7, 10, 0.8));
 }
 .shot--scrim-center > .shot__pin::before {
-  background: radial-gradient(ellipse 60% 55% at 50% 50%, rgba(7, 7, 10, 0.82) 0%, rgba(7, 7, 10, 0.6) 45%, transparent 100%);
+  background: radial-gradient(ellipse 70% 62% at 50% 52%, rgba(7, 7, 10, 0.86) 0%, rgba(7, 7, 10, 0.7) 50%, rgba(7, 7, 10, 0.2) 100%);
 }
 .shot--scrim .shot__frame > * {
   position: relative;

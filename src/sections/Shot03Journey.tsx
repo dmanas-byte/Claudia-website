@@ -4,8 +4,7 @@ import { Shot } from '../ui/Shot'
 import { Accent } from '../ui/Accent'
 import { useScroll } from '../store/useScroll'
 
-/** Beat boundaries inside SHOT 03; the scene uses the same ones (cameraPath, Octagon, Towers). */
-const BEAT_AT = [0, 0.34, 0.66]
+import { JOURNEY_BEATS as BEAT_AT } from '../content/film'
 
 /**
  * SHOT 03 — her journey. Three lines, one per beat: the current line is lit

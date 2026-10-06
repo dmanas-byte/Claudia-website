@@ -31,7 +31,7 @@ export function Shot01Hero() {
   }, [introDone, preloaderDone, reduced])
 
   return (
-    <Shot id="01" frame="bottom-left" label="The walkout">
+    <Shot id="01" frame="bottom-left" label="The walkout" scrim="left">
       <div ref={ref} className="hero">
         <p className="shot__kicker mono" data-reveal style={{ opacity: 0 }}>
           {HERO.kicker}

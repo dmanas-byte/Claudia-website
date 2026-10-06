@@ -30,3 +30,6 @@ test-results/
 .env.local
 dist-preview/
 dist-qa/
+
+# raw Higgsfield renders (sources for public/film; regenerate with scripts/process-art.mjs)
+art/

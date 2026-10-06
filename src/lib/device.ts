@@ -1,14 +1,3 @@
-export function detectWebGL(): boolean {
-  if (typeof window === 'undefined') return false
-  try {
-    const c = document.createElement('canvas')
-    const gl = c.getContext('webgl2') || c.getContext('webgl')
-    return !!gl
-  } catch {
-    return false
-  }
-}
-
 export const isTouchDevice = () =>
   typeof window !== 'undefined' && (window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window)
 

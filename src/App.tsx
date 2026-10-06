@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSettings } from './store/useSettings'
 import { getLenis, initScroll, scrollToAnchor } from './lib/scroll'
 import { LEGACY_OPTIN_PATH, LEGACY_OPTIN_TARGET } from './content/links'
@@ -9,7 +9,7 @@ import { Letterbox } from './ui/Letterbox'
 import { Grain } from './ui/Grain'
 import { Preloader } from './ui/Preloader'
 import { StickyCta } from './ui/StickyCta'
-import { StaticScene } from './fallback/StaticScene'
+import { Film } from './film/Film'
 import { Footer } from './sections/Footer'
 import { Shot01Hero } from './sections/Shot01Hero'
 import { Shot02Tape } from './sections/Shot02Tape'
@@ -31,8 +31,6 @@ import './ui/chrome.css'
 import { PREVIEW, routeUrl } from './lib/env'
 import { PreviewBanner } from './ui/PreviewBanner'
 
-const Scene = lazy(() => import('./scene/Scene'))
-
 type Route = 'home' | 'privacy' | 'terms' | 'speaking' | 'calculator' | 'links'
 
 function resolveRoute(pathname: string): Route {
@@ -48,15 +46,13 @@ function resolveRoute(pathname: string): Route {
   return 'home'
 }
 
-/** `?motion=reduce`, `?nosmooth`, `?nointro`, `?nowebgl` for QA runs */
+/** `?motion=reduce`, `?nosmooth`, `?nointro`, `?lowpower` for QA runs */
 function applyQueryOverrides() {
   const q = new URLSearchParams(window.location.search)
   if (q.get('motion') === 'reduce') useSettings.setState({ reducedMotion: true })
-  if (q.has('nowebgl')) useSettings.setState({ webgl: false })
   if (q.has('nointro')) useSettings.setState({ introDone: true, preloaderDone: true })
   if (q.has('lowpower')) useSettings.setState({ lowPower: true })
   document.documentElement.dataset.motion = useSettings.getState().reducedMotion ? 'reduce' : 'full'
-  document.documentElement.dataset.webgl = useSettings.getState().webgl ? 'on' : 'off'
   return { nosmooth: q.has('nosmooth') }
 }
 
@@ -109,15 +105,6 @@ export default function App() {
 }
 
 function Home() {
-  const webgl = useSettings((s) => s.webgl)
-  // mount the WebGL chunk after first paint so the hero type is the LCP
-  const [sceneReady, setSceneReady] = useState(false)
-  useEffect(() => {
-    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }
-    const go = () => setSceneReady(true)
-    if (w.requestIdleCallback) w.requestIdleCallback(go, { timeout: 900 })
-    else window.setTimeout(go, 250)
-  }, [])
   const reduced = useSettings((s) => s.reducedMotion)
   const introDone = useSettings((s) => s.introDone)
   const preloaderDone = useSettings((s) => s.preloaderDone)
@@ -151,15 +138,7 @@ function Home() {
       <a href="#main" className="skip-link">
         Skip to content
       </a>
-      {webgl ? (
-        sceneReady && (
-          <Suspense fallback={null}>
-            <Scene />
-          </Suspense>
-        )
-      ) : (
-        <StaticScene />
-      )}
+      <Film />
       <Nav />
       <main id="main">
         <Shot01Hero />

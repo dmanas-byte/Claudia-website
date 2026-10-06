@@ -50,7 +50,7 @@ export const TAPE = {
   right: 'Out of the cage',
 }
 
-/** SHOT 03 — her journey in three beats; each beat has its own picture in the scene. */
+/** SHOT 03 — her journey in three beats; each beat has its own picture (src/content/film.ts). */
 export const JOURNEY = {
   kicker: 'Her journey',
   beats: [
