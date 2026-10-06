@@ -21,5 +21,6 @@ export const prefersReducedMotion = () =>
 export const isLowPower = () => {
   if (typeof navigator === 'undefined') return false
   const cores = navigator.hardwareConcurrency ?? 4
-  return isMobileViewport() || (isTouchDevice() && cores <= 4)
+  const mem = (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 8
+  return isMobileViewport() || (isTouchDevice() && cores <= 4) || cores <= 2 || mem <= 2
 }
