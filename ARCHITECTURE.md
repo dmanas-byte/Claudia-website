@@ -40,6 +40,10 @@ r.wind, r.flash, r.pointer, r.reduced, r.lowPower
 Never subscribe React state to per-frame values. Mutate uniforms / matrices in
 `useFrame`. Never call `set` on the store from the scene.
 
+Gate shot membership on `r.shot` (plus `shotProgress`), not on `shotFloat`
+alone: for a pinned shot `shotFloat` reads exactly `i + 1` over the last
+viewport-height of the section while `shot` is still `i`.
+
 ## Shot indices
 
 | index | id  | title                | camera                                                             |
@@ -69,8 +73,20 @@ component with no required props (`export function Towers()`), reads
 `.glsl/.vert/.frag` files in `src/scene/shaders/` imported as strings
 (vite-plugin-glsl; `#include` works).
 
-Global state that objects must NOT touch: renderer exposure/tone mapping
-(`Mood.tsx`), the camera (`CameraRig.tsx`), postprocessing (`Post.tsx`).
+Global state that objects must NOT touch: renderer exposure (`Mood.tsx`),
+tone mapping (ACES, set once in `Scene.tsx` and applied again as the last
+composer pass in `Post.tsx` so exposure behaves the same with and without
+postprocessing), the camera (`CameraRig.tsx`; `portrait` keys in
+`cameraPath.ts` override a shot's framing on phones), postprocessing.
+
+## Pinned frames are hard cuts
+
+A pinned shot's `.shot__pin` is `position: fixed` and only visible while that
+shot is current (`.shot.is-active`, toggled from the scroll store without a
+React render). Never put a CSS transform on `#main` or any ancestor of the
+frames: it would become their containing block and break every fixed frame.
+Shots that fly through the lit city pass `scrim="left" | "full" | "center"`
+to `<Shot>` to darken the copy side.
 
 ## Budgets (desktop / mobile)
 
