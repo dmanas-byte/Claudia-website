@@ -212,9 +212,9 @@ textarea.field__input {
   :root {
     --nav-h: 60px;
   }
-  /* the backpack sits top-right in SHOT 01: keep copy to the lower 70 % */
+  /* the backpack sits in the top third in SHOT 01: copy takes the lower two thirds */
   .shot--01 .shot__frame {
-    padding-top: 34vh;
+    padding-top: 36vh;
   }
   /* the hero bag reads from the front on phones (no copy beside it) */
   .shot--01 .hero {

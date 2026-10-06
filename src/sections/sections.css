@@ -19,6 +19,10 @@
   display: grid;
   gap: clamp(20px, 4vh, 40px);
   justify-self: center;
+  padding: clamp(16px, 3vh, 28px) clamp(16px, 2.5vw, 36px);
+  background: rgba(7, 7, 10, 0.8);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--gold);
 }
 .tape__head {
   display: grid;
@@ -555,6 +559,18 @@
   gap: 8px 22px;
   margin-top: 18px;
   color: var(--gold);
+}
+@media (max-width: 720px) {
+  .hero__headline {
+    font-size: clamp(2.1rem, 1rem + 5.5vw, 2.6rem);
+  }
+  .hero__offer {
+    font-size: var(--fs-body-sm);
+    line-height: 1.5;
+  }
+  .hero__pillars {
+    display: none;
+  }
 }
 .hero__pillars li {
   position: relative;

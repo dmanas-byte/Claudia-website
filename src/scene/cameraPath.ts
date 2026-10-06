@@ -32,16 +32,16 @@ export const CAMERA: ShotCamera[] = [
   // 01 — The Walkout: eye height, slow dolly toward the backpack, which sits
   // right of centre and above the copy block (the copy is bottom-left)
   {
-    from: { pos: [0.95, 1.2, 4.15], target: [-0.9, -0.12, 0], fov: 42 },
-    to: { pos: [0.7, 1.12, 3.35], target: [-0.78, -0.08, 0], fov: 42 },
+    from: { pos: [0.85, 1.1, 3.55], target: [-0.95, -0.1, 0], fov: 42 },
+    to: { pos: [0.62, 1.0, 2.9], target: [-0.82, -0.05, 0], fov: 42 },
     ease: linear,
-    still: { pos: [0.85, 1.16, 3.8], target: [-0.84, -0.1, 0], fov: 42 },
-    // phones: the bag sits in the top half, copy below it
-    portrait: { pos: [0.35, 1.3, 3.9], target: [-0.05, 0.55, 0], fov: 42 },
+    still: { pos: [0.75, 1.05, 3.25], target: [-0.9, -0.08, 0], fov: 42 },
+    // phones: the bag sits in the top third, copy below it
+    portrait: { pos: [0.3, 1.0, 3.4], target: [0, -0.95, 0], fov: 42 },
   },
   // 02 — Tale of the Tape: 25° orbit around the backpack (copy is centred, so the bag sits low)
   {
-    from: { pos: [0.7, 1.12, 3.35], target: [-0.78, -0.08, 0], fov: 42 },
+    from: { pos: [0.62, 1.0, 2.9], target: [-0.82, -0.05, 0], fov: 42 },
     via: [{ pos: [1.5, 1.3, 3.1], target: [-0.4, 0.35, 0] }],
     to: { pos: [2.3, 1.45, 2.6], target: [-0.1, 0.55, 0], fov: 42 },
     still: { pos: [1.6, 1.35, 3.3], target: [-0.3, 0.4, 0], fov: 42 },
