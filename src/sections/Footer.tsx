@@ -1,7 +1,8 @@
 import { BRAND, DISCLAIMER_LONG, FOOTER } from '../content/copy'
-import { SISTER_SITE, SOCIALS } from '../content/links'
-import { PLACEHOLDER_YEAR } from '../content/placeholders'
+import { PAGES, SISTER_SITE, SOCIALS } from '../content/links'
+import { CONTACT_EMAIL, PLACEHOLDER_YEAR } from '../content/placeholders'
 import { useSettings } from '../store/useSettings'
+import { Logo } from '../ui/Logo'
 
 export function Footer() {
   const reduced = useSettings((s) => s.reducedMotion)
@@ -12,7 +13,9 @@ export function Footer() {
       <div className="footer__inner">
         <div className="footer__cols">
           <div className="footer__col">
-            <p className="display display--sm">{BRAND.wordmark}</p>
+            <p className="display display--sm footer__mark">
+              <Logo size={34} /> {BRAND.wordmark}
+            </p>
             <p className="ash" style={{ maxWidth: '36ch' }}>
               {BRAND.description}
             </p>
@@ -26,6 +29,17 @@ export function Footer() {
             ))}
           </div>
           <div className="footer__col">
+            <h2 className="mono">{FOOTER.pages}</h2>
+            {PAGES.map((p) => (
+              <a className="footer__link" href={p.href} key={p.href} data-route>
+                {p.label}
+              </a>
+            ))}
+            <a className="footer__link" href={SISTER_SITE.href} target="_blank" rel="noopener noreferrer">
+              {FOOTER.sister}
+            </a>
+          </div>
+          <div className="footer__col">
             <h2 className="mono">{FOOTER.legal}</h2>
             <a className="footer__link" href="/privacy" data-route>
               {FOOTER.privacy}
@@ -33,12 +47,9 @@ export function Footer() {
             <a className="footer__link" href="/terms" data-route>
               {FOOTER.terms}
             </a>
-            <a className="footer__link" href={SISTER_SITE.href} target="_blank" rel="noopener noreferrer">
-              {FOOTER.sister}
+            <a className="footer__link" href={CONTACT_EMAIL ? `mailto:${CONTACT_EMAIL}` : '/#apply'}>
+              {FOOTER.contact}
             </a>
-          </div>
-          <div className="footer__col">
-            <h2 className="mono">Settings</h2>
             <button type="button" className="toggle" aria-pressed={reduced} onClick={() => setReduced(!reduced)}>
               <span className="toggle__track" aria-hidden="true" />
               <span>{FOOTER.reduceMotion}</span>
@@ -53,7 +64,7 @@ export function Footer() {
         </div>
         <div className="footer__bottom mono mono--sm">
           <span>
-            {FOOTER.copyright} {year || PLACEHOLDER_YEAR}
+            © {year || PLACEHOLDER_YEAR} {FOOTER.copyright.replace('© ', '')}
           </span>
           <span>{BRAND.tagline}</span>
         </div>

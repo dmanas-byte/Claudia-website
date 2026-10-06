@@ -3,14 +3,15 @@ import { BRAND, NAV } from '../content/copy'
 import { useScroll } from '../store/useScroll'
 import { useSettings } from '../store/useSettings'
 import { gsap, scrollToAnchor } from '../lib/scroll'
+import { Logo } from './Logo'
 
-export function Nav() {
+export function Nav({ home = true }: { home?: boolean }) {
   const ref = useRef<HTMLElement>(null)
   const reduced = useSettings((s) => s.reducedMotion)
 
   useEffect(() => {
     const el = ref.current
-    if (!el) return
+    if (!el || !home) return
     let hidden = false
     let lastY = 0
     const unsub = useScroll.subscribe((s) => {
@@ -27,27 +28,35 @@ export function Nav() {
       }
     })
     return unsub
-  }, [reduced])
+  }, [reduced, home])
 
   const go = (anchor: string) => (e: React.MouseEvent) => {
+    if (!home) return
     e.preventDefault()
     scrollToAnchor(anchor)
   }
 
   return (
     <header className="nav" ref={ref}>
-      <a href="#walkout" className="nav__mark" onClick={go('walkout')} aria-label={`${BRAND.wordmark} — back to top`}>
+      <a href={home ? '#walkout' : '/'} className="nav__mark" onClick={go('walkout')} aria-label={`${BRAND.wordmark} — home`} data-route={home ? undefined : ''}>
+        <Logo />
         {BRAND.wordmark}
         <small>{BRAND.tagline}</small>
       </a>
       <nav className="nav__links" aria-label="Primary">
-        <a href="#program" className="nav__link" onClick={go('program')}>
+        <a href="/#program" className="nav__link" onClick={go('program')}>
           {NAV.program}
         </a>
-        <a href="#story" className="nav__link" onClick={go('story')}>
+        <a href="/#story" className="nav__link" onClick={go('story')}>
           {NAV.story}
         </a>
-        <a href="#apply" className="btn btn--gold btn--sm nav__cta" onClick={go('apply')}>
+        <a href="/speaking" className="nav__link" data-route>
+          {NAV.speaking}
+        </a>
+        <a href="/calculator" className="nav__link" data-route>
+          {NAV.calculator}
+        </a>
+        <a href="/#apply" className="btn btn--gold btn--sm nav__cta" onClick={go('apply')}>
           {NAV.cta}
         </a>
       </nav>

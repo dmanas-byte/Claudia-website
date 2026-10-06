@@ -46,7 +46,10 @@ export function Shot02Tape() {
       <div className="tape" ref={ref}>
         <div className="tape__head">
           <p className="tape__col-title mono">{TAPE.left}</p>
-          <h2 className="display display--sm">{TAPE.kicker}</h2>
+          <div>
+            <h2 className="display display--sm">{TAPE.kicker}</h2>
+            <p className="tape__sub mono mono--sm gold">{TAPE.sub}</p>
+          </div>
           <p className="tape__col-title tape__col-title--r mono">{TAPE.right}</p>
         </div>
         <ul className="tape__rows" aria-label="Fighter versus architect">
@@ -59,7 +62,7 @@ export function Shot02Tape() {
                   <FactValue fact={f} />
                 </span>
                 <span className="tape__label mono mono--sm" aria-hidden="true">
-                  {String(i + 1).padStart(2, '0')}
+                  {a.label}
                 </span>
                 <span className="tape__cell tape__cell--r">
                   <span className="sr-only">{TAPE.right}: </span>

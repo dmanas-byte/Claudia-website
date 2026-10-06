@@ -26,8 +26,9 @@ export function Letterbox() {
       const { w, h } = s.viewport
       const full = Math.max(0, (h - w / 2.39) / 2)
       const maxBar = Math.min(full, h * 0.11)
-      const edge = s.shotProgress > 0.93 || (s.shotProgress < 0.07 && s.shot > 0)
-      const moving = s.wind > 0.18
+      const atEnd = s.progress > 0.985 // footer: a reading moment
+      const edge = !atEnd && (s.shotProgress > 0.93 || (s.shotProgress < 0.07 && s.shot > 0))
+      const moving = s.wind > 0.18 && !atEnd
       const wanted = edge || moving ? maxBar : 0
       if (wanted !== lastWanted) {
         lastWanted = wanted

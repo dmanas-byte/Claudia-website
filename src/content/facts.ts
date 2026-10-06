@@ -36,23 +36,18 @@ export interface Fact {
 
 export const FIGHTER_FACTS: Fact[] = [
   { label: 'From', value: 'Mossoró, Brazil', verified: true, source: 'sherdog.com/fighter/Claudia-Gadelha-48404' },
-  {
-    label: 'Path',
-    value: 'Jungle Fight → Invicta FC → UFC',
-    verified: false,
-    note: 'ESPN/Sherdog records show no Jungle Fight bout. Owner to confirm the promotion name or replace with “Brazilian circuit”.',
-  },
+  { label: 'Start', value: 'Hitchhiked 4 hours to her first BJJ gym at 15', verified: true, source: 'owner site (cgadelha.com)' },
+  { label: 'Camp', value: 'Trained with José Aldo and Renan Barão', verified: true, source: 'owner site; Nova União black belt 2010 (graciemag.com)' },
   { label: 'Title fight', value: 'vs. Joanna Jędrzejczyk, 8 Jul 2016', verified: true, source: 'ufc.com/news/ultimate-fighter-finale-final-results-news' },
-  { label: 'Ranking', value: 'Long-time top-ranked strawweight', verified: true, source: 'ufc.com/video/52379 (No. 1 vs No. 2, UFC 212)' },
   { label: 'Retired', value: 'Dec 2021 · 18–5', verified: true, source: 'sherdog.com/news/…Claudia-Gadelha-Announces-Retirement-183646' },
 ]
 
 export const ARCHITECT_FACTS: Fact[] = [
-  { label: 'Jiu-Jitsu', value: '4th-degree BJJ black belt', verified: false, note: 'Black belt (Nova União, 2010) is sourced; the degree is not.' },
-  { label: 'Education', value: 'Law graduate', verified: false, note: 'Law school attendance sourced (UFC.com Q&A); graduation not.' },
-  { label: 'Role', value: 'UFC executive', verified: true, source: 'ufc.com — Senior Director, Jiu-Jitsu Strategy & Business Development (Jun 2025)' },
-  { label: 'Role', value: 'High-performance mentor', verified: true, source: 'owner copy' },
-  { label: 'Now', value: 'Self-made wealth architect', verified: true, source: 'owner copy' },
+  { label: '8-Fig', value: '8-figure investor', verified: true, source: 'owner site (cgadelha.com)' },
+  { label: 'Options', value: 'Growth investor and options trader', verified: true, source: 'owner site (cgadelha.com)' },
+  { label: 'BJJ', value: '4th-degree BJJ black belt', verified: true, source: 'owner site (cgadelha.com); black belt under André Pederneiras, 2010' },
+  { label: 'Exec', value: 'UFC executive', verified: true, source: 'ufc.com — Senior Director, Jiu-Jitsu Strategy & Business Development (Jun 2025)' },
+  { label: 'Law', value: 'Law graduate', verified: true, source: 'owner site (cgadelha.com); law school attendance also on ufc.com Q&A' },
 ]
 
 export interface Poster {
@@ -65,19 +60,12 @@ export interface Poster {
 }
 
 export const POSTERS: Poster[] = [
-  { n: '01', title: 'Mossoró', date: 'Born 7 Dec 1988', dateVerified: true, line: 'Where it started. One bag, one plan.', slot: 'poster1' },
-  {
-    n: '02',
-    title: 'Jungle Fight',
-    date: 'Pro debut 2008 — promotion to confirm',
-    dateVerified: false,
-    line: 'Brazil’s proving ground. Seven years of regional fights.',
-    slot: 'poster2',
-  },
+  { n: '01', title: 'Mossoró', date: 'Born 7 Dec 1988', dateVerified: true, line: 'A dream, a backpack, and a highway.', slot: 'poster1' },
+  { n: '02', title: 'Nova União', date: 'Black belt 2010', dateVerified: true, line: 'Training with José Aldo and Renan Barão.', slot: 'poster2' },
   { n: '03', title: 'Invicta FC', date: '13 Jul 2013', dateVerified: true, line: 'The world starts watching. Kansas City, round three.', slot: 'poster3' },
   { n: '04', title: 'UFC', date: '16 Jul 2014', dateVerified: true, line: 'The first women’s strawweight bout in UFC history.', slot: 'poster4' },
   { n: '05', title: 'The Title Fight', date: '8 Jul 2016', dateVerified: true, line: 'Five rounds for the strawweight championship.', slot: 'poster5' },
-  { n: '06', title: 'The Next Chapter', date: 'Retired Dec 2021', dateVerified: true, line: 'Executive. Mentor. Architect.', slot: 'poster6' },
+  { n: '06', title: 'The Next Chapter', date: 'Retired Dec 2021', dateVerified: true, line: 'Executive. Investor. Mentor.', slot: 'poster6' },
 ]
 
 export const RECORD = { wins: 18, losses: 5, verified: true, source: 'sherdog.com/fighter/Claudia-Gadelha-48404' }

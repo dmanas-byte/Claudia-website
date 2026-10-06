@@ -36,12 +36,17 @@ export function Shot01Hero() {
         <p className="shot__kicker mono" data-reveal style={{ opacity: 0 }}>
           {HERO.kicker}
         </p>
-        <h1 className="display display--xl shot__headline hero__headline">
+        <h1 className="display display--lg shot__headline hero__headline">
           <RevealLines lines={HERO.lines} />
         </h1>
         <p className="lede hero__offer" data-reveal style={{ opacity: 0 }}>
           {HERO.offer}
         </p>
+        <ul className="hero__pillars mono mono--sm" data-reveal style={{ opacity: 0 }} aria-label="Program pillars">
+          {HERO.pillars.map((p) => (
+            <li key={p}>{p}</li>
+          ))}
+        </ul>
         <div className="shot__ctas" data-reveal style={{ opacity: 0 }}>
           <a
             href="#apply"

@@ -25,16 +25,25 @@ import { Shot10Apply } from './sections/Shot10Apply'
 import { Shot11Proof } from './sections/Shot11Proof'
 import { Shot12Finale } from './sections/Shot12Finale'
 import { LegalPage } from './pages/Legal'
+import { SpeakingPage } from './pages/Speaking'
+import { CalculatorPage } from './pages/Calculator'
+import { LinksPage } from './pages/Links'
 import './ui/chrome.css'
 
 const Scene = lazy(() => import('./scene/Scene'))
 
-type Route = 'home' | 'privacy' | 'terms'
+type Route = 'home' | 'privacy' | 'terms' | 'speaking' | 'calculator' | 'links'
 
 function resolveRoute(pathname: string): Route {
   const p = pathname.replace(/\/+$/, '') || '/'
   if (p === '/privacy') return 'privacy'
   if (p === '/terms') return 'terms'
+  if (p === '/speaking') return 'speaking'
+  if (p === '/calculator') return 'calculator'
+  if (p === '/links') return 'links'
+  // GitHub Pages 404 fallback passes the path as ?p=
+  const q = new URLSearchParams(window.location.search).get('p')
+  if (q && p === '/') return resolveRoute(q)
   return 'home'
 }
 
@@ -72,7 +81,10 @@ export default function App() {
     }
   }, [])
 
-  if (route !== 'home') return <LegalPage kind={route} />
+  if (route === 'privacy' || route === 'terms') return <LegalPage kind={route} />
+  if (route === 'speaking') return <SpeakingPage />
+  if (route === 'calculator') return <CalculatorPage />
+  if (route === 'links') return <LinksPage />
   return <Home />
 }
 

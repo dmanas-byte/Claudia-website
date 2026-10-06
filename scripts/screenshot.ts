@@ -27,6 +27,7 @@ const STEPS = Number(opt('steps', '10'))
 /** --at "12,18,25" capture only these percentages; --viewport desktop|mobile|both */
 const AT = (opt('at', '') ?? '').split(',').map((v) => v.trim()).filter(Boolean).map(Number)
 const VIEWPORT = opt('viewport', 'both')
+const SETTLE = Number(opt('settle', '1200'))
 const EXE = process.env.PW_CHROME || (process.env.CI ? undefined : undefined)
 
 const VIEWPORTS = [
@@ -72,7 +73,16 @@ async function run(browser: Browser) {
     for (const pct of pcts) {
       const y = Math.round((total * pct) / 100)
       await page.evaluate((yy) => window.scrollTo({ top: yy, behavior: 'auto' }), y)
-      await page.waitForTimeout(900)
+      // SwiftShader frames can take hundreds of ms: wait for real frames, then a beat for GSAP
+      await page.evaluate(
+        () =>
+          new Promise<void>((resolve) => {
+            let n = 0
+            const tick = () => (++n >= 6 ? resolve() : requestAnimationFrame(tick))
+            requestAnimationFrame(tick)
+          }),
+      )
+      await page.waitForTimeout(SETTLE)
       await page.screenshot({ path: join(dir, `${String(pct).padStart(3, '0')}.png`) })
       process.stdout.write(`${vp.name} ${pct}%  y=${y}\n`)
     }

@@ -59,6 +59,7 @@ export function Shot05Playbook() {
                   {r.n} <span style={{ fontWeight: 500, color: 'var(--ash)', fontSize: '0.8em' }}>of 6</span>
                 </b>
               </p>
+              <p className="round__name mono mono--sm ash">{r.name}</p>
               <h3 className="display round__headline">{r.headline}</h3>
               <p className="lede round__body">{r.body}</p>
               <p className="mono round__get">{r.get}</p>

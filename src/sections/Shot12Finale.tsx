@@ -9,6 +9,7 @@ export function Shot12Finale() {
       <h2 className="display display--xl shot__headline finale__headline" style={{ justifySelf: 'center' }}>
         <Accent text={FINALE.headline} />
       </h2>
+      <p className="finale__quote accent">{FINALE.quote}</p>
       <div className="shot__ctas" style={{ justifyContent: 'center' }}>
         <a
           href="#apply"

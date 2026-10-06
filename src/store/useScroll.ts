@@ -70,12 +70,15 @@ export const useScroll = create<ScrollState>((set, get) => ({
     const docEnd = ranges.length ? ranges[ranges.length - 1].bottom - s.viewport.h : 1
     const progress = clamp(y / Math.max(1, docEnd))
 
-    // which shot are we in? A shot is "current" while its top is above the fold.
+    // which shot are we in? A shot becomes "current" once its section covers
+    // the middle of the viewport, so cuts land while the next frame is already
+    // the dominant thing on screen.
     let shot = 0
     let shotProgress = 0
     if (ranges.length) {
+      const mid = y + s.viewport.h * 0.5
       for (let i = ranges.length - 1; i >= 0; i--) {
-        if (y >= ranges[i].top - 0.5) {
+        if (mid >= ranges[i].top - 0.5 && ranges[i].bottom > ranges[i].top) {
           shot = i
           break
         }
