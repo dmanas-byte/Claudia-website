@@ -1,3 +1,4 @@
+/* anamorphic streak / soft disc: gaussian in x and y plus a tight core */
 uniform vec3 uColor;
 uniform float uIntensity;
 uniform vec2 uFalloff;

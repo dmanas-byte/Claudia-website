@@ -1,4 +1,4 @@
-/* shared hash / value noise / 3-octave fbm for the hero track */
+/* shared hash / value noise / fbm for the hero track (max 4 octaves) */
 float heroHash(vec2 p) {
   p = fract(p * vec2(123.34, 456.21));
   p += dot(p, p + 45.32);
@@ -18,7 +18,7 @@ float heroFbm(vec2 p, int oct) {
   float v = 0.0;
   float a = 0.5;
   mat2 m = mat2(1.6, 1.2, -1.2, 1.6);
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < 4; i++) {
     if (i >= oct) break;
     v += a * heroNoise(p);
     p = m * p;
