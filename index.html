@@ -16,13 +16,9 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@claudiagadelha" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
-    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
-    <!-- Clash Display + Satoshi (Fontshare). Run `npm run fonts` to self-host instead. -->
-    <link
-      rel="stylesheet"
-      href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap"
-    />
+    <!-- Clash Display + Satoshi are self-hosted (public/fonts, see `npm run fonts`). Preload the two faces the hero paints with. -->
+    <link rel="preload" href="/fonts/02-53rzkgodfydw3qhtil7ipowtbcsuezk7.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/03-6in5wolrcyp4g4mocohomxnon6q7mdar.woff2" as="font" type="font/woff2" crossorigin />
     <style>
       /* critical: never show a white frame */
       html,

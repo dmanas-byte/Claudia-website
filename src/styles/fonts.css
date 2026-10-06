@@ -4,13 +4,12 @@
 @import '@fontsource/instrument-serif/400-italic.css';
 
 /*
-  Clash Display and Satoshi are served from Fontshare (see index.html).
-  To self-host instead, run `npm run fonts` (scripts/fetch-fonts.mjs) which
-  downloads the woff2 files into public/fonts and rewrites this block.
-
-  The fallback faces below are metric-adjusted local fonts so the layout does
-  not shift when the web fonts arrive (font-display: swap on the CDN side).
+  Clash Display and Satoshi are self-hosted from public/fonts (downloaded from
+  Fontshare with `npm run fonts`, ITF Free Font License). The fallback faces
+  below are metric-adjusted local fonts so the layout does not shift while the
+  web fonts load (font-display: swap).
 */
+@import './fonts.selfhosted.css';
 @font-face {
   font-family: 'Clash Display Fallback';
   src: local('Helvetica Neue Bold'), local('HelveticaNeue-Bold'), local('Arial Bold'), local('Arial-BoldMT'), local('Arial');
