@@ -51,7 +51,7 @@ export const CAMERA: ShotCamera[] = [
     from: { pos: [2.3, 1.45, 2.6], target: [-0.1, 0.55, 0], fov: 42 },
     via: [{ pos: [3.2, 9, 7.5], target: [0, 1.5, 0] }],
     to: { pos: [0.5, 32, 11], target: [0, 0, 0], fov: 48 },
-    still: { pos: [3.2, 12, 9], target: [0, 2, 0], fov: 46 },
+    still: { pos: [6, 22, 14], target: [0, 6, -2], fov: 46 },
   },
   // 04 — The Record: lateral glide above the city while the posters pass
   {

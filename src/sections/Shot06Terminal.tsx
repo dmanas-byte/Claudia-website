@@ -6,7 +6,7 @@ import { ImageSlotFrame } from '../ui/Placeholder'
 
 export function Shot06Terminal() {
   return (
-    <Shot id="06" frame="bottom-left" label="The real problem">
+    <Shot id="06" frame="bottom-left" label="The real problem" scrim="left">
       <p className="terminal__sample mono mono--sm" role="note">
         {TERMINAL.wallLabel}
       </p>
