@@ -13,6 +13,7 @@ uniform float uBox;
 varying float vLit;
 varying float vTw;
 
+/* 0..1 how deep point p sits inside the beam from lamp to tgt (radius r at the target) */
 float beam(vec3 p, vec3 lamp, vec3 tgt, float r) {
   vec3 d = tgt - lamp;
   float L = length(d);
@@ -28,16 +29,17 @@ void main() {
   float sp = 0.4 + aSeed.y * 0.8;
   vec3 p = position;
   float t = uDrift * sp;
-  p.x += sin(t * 0.37 + ph) * 0.6 + sin(t * 0.11 + ph * 2.0) * 1.2;
+  /* slow turbulent drift; wind pushes everything sideways and up */
+  p.x += sin(t * 0.37 + ph) * 0.6 + sin(t * 0.11 + ph * 2.0) * 1.2 + uWind * 1.5 * sin(ph);
   p.y += sin(t * 0.23 + ph * 1.7) * 0.35 + uDrift * 0.03 * sp;
   p.z += cos(t * 0.29 + ph * 0.6) * 0.6;
   /* wrap the vertical drift into the box */
   p.y = mod(p.y, uBox);
   vec4 mv = modelViewMatrix * vec4(p, 1.0);
-  float lit = beam(p, uLampA, uTarget, 2.6) + beam(p, uLampB, uTarget, 2.6) + beam(p, uLampC, uTargetC, 1.2) * 0.8;
+  float lit = beam(p, uLampA, uTarget, 2.4) + beam(p, uLampB, uTarget, 2.4) + beam(p, uLampC, uTargetC, 1.1) * 0.8;
   vLit = clamp(lit * uBeam, 0.0, 1.0);
-  vTw = 0.55 + 0.45 * sin(uTime * (1.5 + aSeed.z * 3.0) + ph);
-  float size = (0.8 + aSeed.w * 1.4) * uPixelScale;
-  gl_PointSize = clamp(size / max(0.5, -mv.z), 1.0, 16.0);
+  vTw = 0.5 + 0.5 * sin(uTime * (1.5 + aSeed.z * 3.0) + ph);
+  float size = (0.7 + aSeed.w * 1.5) * uPixelScale;
+  gl_PointSize = clamp(size / max(0.5, -mv.z), 1.0, 14.0);
   gl_Position = projectionMatrix * mv;
 }

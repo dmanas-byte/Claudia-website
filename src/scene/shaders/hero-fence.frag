@@ -1,3 +1,4 @@
+/* procedural chain-link: a diamond lattice from two sets of parallel lines */
 uniform vec2 uSize;
 uniform float uPeriod;
 uniform float uWire;
@@ -18,7 +19,7 @@ float beamSpill(vec3 p, vec3 lamp, vec3 tgt) {
   float t = dot(toP, d);
   vec3 c = lamp + d * max(t, 0.0);
   float ang = distance(p, c) / max(t, 0.5);
-  return exp(-ang * ang * 9.0);
+  return exp(-ang * ang * 30.0);
 }
 void main() {
   vec2 m = vUv * uSize;
@@ -33,15 +34,17 @@ void main() {
   float lv = 1.0 - smoothstep(w - aa, w + aa, fv);
   float cover = max(lu, lv);
   if (cover < 0.5) discard;
+  /* round the wire: bright ridge in the middle of each line */
   float shade = lu > lv ? (1.0 - fu / max(w, 0.0001)) : (1.0 - fv / max(w, 0.0001));
-  shade = 0.45 + 0.55 * sqrt(clamp(shade, 0.0, 1.0));
+  shade = 0.4 + 0.6 * sqrt(clamp(shade, 0.0, 1.0));
   vec3 vdir = normalize(cameraPosition - vWorld);
   vec3 n = normalize(vNormalW);
   float fres = pow(1.0 - abs(dot(n, vdir)), 2.0);
   float spill = (beamSpill(vWorld, uLampA, uTarget) + beamSpill(vWorld, uLampB, uTarget)) * uSpill;
-  float heightTone = 0.5 + 0.5 * vUv.y;
-  vec3 col = uBase * shade * (0.35 + 0.65 * heightTone) * (1.0 + 0.9 * fres);
-  col += uGold * (0.03 + 0.35 * spill) * shade;
+  /* steel reads a little brighter near the top rail where the arena light grazes it */
+  float heightTone = 0.45 + 0.55 * vUv.y;
+  vec3 col = uBase * shade * (0.35 + 0.65 * heightTone) * (1.0 + 0.6 * fres) * (1.0 - uFade);
+  col += uGold * (0.008 + 0.4 * spill) * shade * (1.0 - uFade);
   gl_FragColor = vec4(col, 1.0);
   #include <tonemapping_fragment>
   #include <colorspace_fragment>
