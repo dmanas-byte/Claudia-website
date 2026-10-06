@@ -38,7 +38,7 @@ export function Nav({ home = true }: { home?: boolean }) {
 
   return (
     <header className="nav" ref={ref}>
-      <a href={home ? '#walkout' : '/'} className="nav__mark" onClick={go('walkout')} aria-label={`${BRAND.wordmark} — home`} data-route={home ? undefined : ''}>
+      <a href={home ? '#walkout' : '/'} className="nav__mark" onClick={go('walkout')} data-route={home ? undefined : ''}>
         <Logo />
         {BRAND.wordmark}
         <small>{BRAND.tagline}</small>

@@ -576,18 +576,17 @@
   max-width: 40rem;
 }
 .backpack__para {
-  opacity: 0.18;
-  transition: opacity 0.5s var(--ease-out-power2);
+  /* unlit paragraphs stay readable (ash ≥ 4.5:1); lit ones go bone */
+  color: var(--ash);
+  transition: color 0.5s var(--ease-out-power2);
   font-size: var(--fs-body-sm);
 }
 .backpack[data-step='1'] .backpack__para[data-para='1'],
 .backpack[data-step='2'] .backpack__para[data-para='1'],
 .backpack[data-step='2'] .backpack__para[data-para='2'],
-.backpack[data-step='3'] .backpack__para {
-  opacity: 1;
-}
+.backpack[data-step='3'] .backpack__para,
 html[data-motion='reduce'] .backpack__para {
-  opacity: 1;
+  color: var(--bone);
 }
 .terminal {
   width: 100%;
@@ -637,8 +636,8 @@ html[data-motion='reduce'] .backpack__para {
   padding: 14px;
   border: 1px solid var(--line);
   background: rgba(7, 7, 10, 0.55);
-  opacity: 0.28;
-  transition: opacity 0.4s var(--ease-out-power2), border-color 0.4s;
+  color: var(--ash);
+  transition: color 0.4s var(--ease-out-power2), border-color 0.4s, background-color 0.4s;
 }
 .principle__letter {
   grid-area: letter;
@@ -652,6 +651,7 @@ html[data-motion='reduce'] .backpack__para {
   font-size: 1.05rem;
   font-weight: 600;
   text-transform: none;
+  color: inherit;
 }
 .principle__en {
   grid-area: en;
@@ -674,8 +674,9 @@ html[data-motion='reduce'] .backpack__para {
 .corner[data-lit='2'] .principle:nth-child(-n + 2),
 .corner[data-lit='1'] .principle:nth-child(-n + 1),
 html[data-motion='reduce'] .principle {
-  opacity: 1;
+  color: var(--bone);
   border-color: var(--gold-dim);
+  background: rgba(21, 22, 28, 0.7);
 }
 .corner[data-lit='9'] .principle .principle__letter,
 html[data-motion='reduce'] .principle__letter {
@@ -704,13 +705,17 @@ html[data-motion='reduce'] .principle__letter {
   padding: 14px 16px;
   border: 1px solid var(--line);
   background: rgba(7, 7, 10, 0.55);
-  opacity: 0.3;
-  transition: opacity 0.3s steps(1), border-color 0.3s;
+  color: var(--ash);
+  transition: color 0.3s steps(1), border-color 0.3s, background-color 0.3s;
 }
 .persona.is-on,
 html[data-motion='reduce'] .persona {
-  opacity: 1;
+  color: var(--bone);
   border-color: var(--gold-dim);
+  background: rgba(21, 22, 28, 0.7);
+}
+.persona__t {
+  color: inherit;
 }
 .persona__n {
   grid-area: n;

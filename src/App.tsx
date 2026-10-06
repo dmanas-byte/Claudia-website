@@ -90,6 +90,14 @@ export default function App() {
 
 function Home() {
   const webgl = useSettings((s) => s.webgl)
+  // mount the WebGL chunk after first paint so the hero type is the LCP
+  const [sceneReady, setSceneReady] = useState(false)
+  useEffect(() => {
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }
+    const go = () => setSceneReady(true)
+    if (w.requestIdleCallback) w.requestIdleCallback(go, { timeout: 900 })
+    else window.setTimeout(go, 250)
+  }, [])
   const reduced = useSettings((s) => s.reducedMotion)
   const introDone = useSettings((s) => s.introDone)
   const preloaderDone = useSettings((s) => s.preloaderDone)
@@ -124,9 +132,11 @@ function Home() {
         Skip to content
       </a>
       {webgl ? (
-        <Suspense fallback={null}>
-          <Scene />
-        </Suspense>
+        sceneReady && (
+          <Suspense fallback={null}>
+            <Scene />
+          </Suspense>
+        )
       ) : (
         <StaticScene />
       )}
