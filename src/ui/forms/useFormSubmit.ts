@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react'
+import { PREVIEW } from '../../lib/env'
 
 export type FormStatus = 'idle' | 'submitting' | 'success' | 'error'
 
@@ -25,7 +26,7 @@ export function useFormSubmit(form: 'apply' | 'speaking') {
       setMessage('')
       const payload = { form, ...fields, page: window.location.href, ts: new Date().toISOString() }
       delete (payload as Record<string, unknown>).company
-      if (!FORM_ENDPOINT_CONFIGURED) {
+      if (PREVIEW || !FORM_ENDPOINT_CONFIGURED) {
         await new Promise((r) => setTimeout(r, 500))
         console.info('[walkout] demo submission (set VITE_FORM_ENDPOINT):', payload)
         setStatus('success')

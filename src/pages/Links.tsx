@@ -21,7 +21,7 @@ export function LinksPage() {
             {LINKS.items.map((it) =>
               it.href ? (
                 <li key={it.t}>
-                  <a className="links__item" href={it.href} data-route={it.href.startsWith('/') && !it.href.includes('#') ? '' : undefined} target={it.href.startsWith('http') ? '_blank' : undefined} rel={it.href.startsWith('http') ? 'noopener noreferrer' : undefined}>
+                  <a className="links__item" href={it.href} data-route={it.href.startsWith('/') ? '' : undefined} target={it.href.startsWith('http') ? '_blank' : undefined} rel={it.href.startsWith('http') ? 'noopener noreferrer' : undefined}>
                     <span className="links__t">{it.t}</span>
                     <span className="links__d">{it.d}</span>
                   </a>

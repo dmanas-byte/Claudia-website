@@ -30,6 +30,13 @@ To test locally: `npm run mock-endpoint` and set `VITE_FORM_ENDPOINT=http://loca
 - **Netlify**: same; `netlify.toml` is included.
 - **GitHub Pages**: build, publish `dist/`; `public/404.html` routes deep links back to the app.
 
+## Concept preview build
+
+`npm run build:preview` builds a labelled preview into `dist-preview/`: a banner on
+every screen says it is a concept preview and not the official site, the forms do
+not send, assets use relative paths, and `page.html` is ready to host as a single
+page. Use it to show the design before launch; deploy the normal build for the real site.
+
 ## Edit any line of copy
 
 Everything a visitor reads lives in `src/content/`:

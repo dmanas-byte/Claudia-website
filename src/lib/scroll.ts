@@ -75,6 +75,8 @@ export function scrollToAnchor(anchor: string, opts: { immediate?: boolean } = {
   const el = document.getElementById(anchor)
   if (!el) return
   if (lenis) {
+    // page height may have changed (route change, fonts): refresh limits first
+    lenis.resize()
     lenis.scrollTo(el, { immediate: opts.immediate, duration: 1.4, offset: 0 })
   } else {
     el.scrollIntoView({ behavior: opts.immediate ? 'auto' : 'smooth', block: 'start' })

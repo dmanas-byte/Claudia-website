@@ -47,7 +47,7 @@ export function Footer() {
             <a className="footer__link" href="/terms" data-route>
               {FOOTER.terms}
             </a>
-            <a className="footer__link" href={CONTACT_EMAIL ? `mailto:${CONTACT_EMAIL}` : '/#apply'}>
+            <a className="footer__link" href={CONTACT_EMAIL ? `mailto:${CONTACT_EMAIL}` : '/#apply'} data-route={CONTACT_EMAIL ? undefined : ''}>
               {FOOTER.contact}
             </a>
             <button type="button" className="toggle" aria-pressed={reduced} onClick={() => setReduced(!reduced)}>

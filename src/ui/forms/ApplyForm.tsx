@@ -1,6 +1,7 @@
 import { useId, useState, type FormEvent } from 'react'
 import { APPLY } from '../../content/copy'
 import { FORM_ENDPOINT_CONFIGURED, isEmail, useFormSubmit } from './useFormSubmit'
+import { PREVIEW } from '../../lib/env'
 
 export function ApplyForm({ onDone }: { onDone?: () => void }) {
   const id = useId()
@@ -25,8 +26,12 @@ export function ApplyForm({ onDone }: { onDone?: () => void }) {
   if (status === 'success') {
     return (
       <div className="form__success" role="status" aria-live="polite">
-        <p className="display display--sm">{APPLY.success}</p>
-        {!FORM_ENDPOINT_CONFIGURED && <p className="mono mono--sm gold">{APPLY.demoNote}</p>}
+        <p className="display display--sm">{PREVIEW ? 'Preview only. Nothing was sent.' : APPLY.success}</p>
+        {PREVIEW ? (
+          <p className="mono mono--sm gold">On the live site this form goes straight to Claudia’s team.</p>
+        ) : (
+          !FORM_ENDPOINT_CONFIGURED && <p className="mono mono--sm gold">{APPLY.demoNote}</p>
+        )}
       </div>
     )
   }

@@ -11,7 +11,8 @@
     "typecheck": "tsc -b",
     "shots": "node --experimental-strip-types scripts/screenshot.ts",
     "fonts": "node scripts/fetch-fonts.mjs",
-    "mock-endpoint": "node scripts/mock-endpoint.mjs"
+    "mock-endpoint": "node scripts/mock-endpoint.mjs",
+    "build:preview": "VITE_PREVIEW=true vite build --base ./ --outDir dist-preview && node scripts/make-artifact-page.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",

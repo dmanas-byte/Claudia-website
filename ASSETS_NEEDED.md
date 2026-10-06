@@ -21,8 +21,8 @@ records for them on file.
 | `speaking1-3` | /speaking gallery                          | see file        | JPG       | On stage / panel                                                 | filled: `stage01.jpeg`, `stage02.jpeg`, `claudia-stage.jpeg` |
 | `ogImage`     | social share card                          | 1200×630        | PNG       | arena still with the headline                                    | generated at build (`public/og.png`); replace if desired |
 
-Community proof images (SHOT 11): `depo2–7.jpeg` from the live site. One of them
-shows a member's brokerage P&L screenshot; counsel should confirm it may stay.
+Community proof images (SHOT 11): `depo2–7.jpeg` from the live site, member
+comments from the community with names and profile photos. Keep permission on file.
 
 ## Facts and dates (`src/content/facts.ts`)
 

@@ -1,3 +1,5 @@
+import { asset } from '../lib/env'
+
 /**
  * Every unknown on the site lives here. Each constant is rendered visibly as
  * a labeled placeholder and listed in ASSETS_NEEDED.md. Swap one line to
@@ -49,7 +51,7 @@ export const IMAGE_SLOTS: Record<string, ImageSlot> = {
     depicts: 'Claudia in the gi with her black belt',
     aspect: '12 / 16',
     size: '1200×1600',
-    src: '/images/source/claudia-bjj.jpeg',
+    src: asset('/images/source/claudia-bjj.jpeg'),
     alt: 'Claudia Gadelha in a white gi wearing her black belt, in a gym with a chain-link fence',
     focus: '50% 20%',
   },
@@ -86,7 +88,7 @@ export const IMAGE_SLOTS: Record<string, ImageSlot> = {
     depicts: 'Claudia on stage as executive and mentor',
     aspect: '12 / 16',
     size: '1200×1600',
-    src: '/images/source/claudia-stage.jpeg',
+    src: asset('/images/source/claudia-stage.jpeg'),
     alt: 'Claudia Gadelha speaking on stage with a headset microphone',
     focus: '50% 30%',
   },
@@ -96,7 +98,7 @@ export const IMAGE_SLOTS: Record<string, ImageSlot> = {
     depicts: 'Claudia with the Charging Bull on Wall Street',
     aspect: '1092 / 1348',
     size: '1092×1348',
-    src: '/images/source/wallstreet.jpeg',
+    src: asset('/images/source/wallstreet.jpeg'),
     alt: 'Claudia Gadelha smiling next to the Charging Bull statue on Wall Street',
   },
   speakingHero: {
@@ -105,7 +107,7 @@ export const IMAGE_SLOTS: Record<string, ImageSlot> = {
     depicts: 'Claudia presenting at a podium',
     aspect: '1600 / 939',
     size: '1600×939',
-    src: '/images/source/claudia-speaking.jpeg',
+    src: asset('/images/source/claudia-speaking.jpeg'),
     alt: 'Claudia Gadelha presenting on stage next to a laptop',
   },
   speaking1: {
@@ -114,7 +116,7 @@ export const IMAGE_SLOTS: Record<string, ImageSlot> = {
     depicts: 'Claudia speaking at a lectern',
     aspect: '3 / 4',
     size: '960×1280',
-    src: '/images/source/stage01.jpeg',
+    src: asset('/images/source/stage01.jpeg'),
     alt: 'Claudia Gadelha speaking at a lectern with a microphone',
   },
   speaking2: {
@@ -123,7 +125,7 @@ export const IMAGE_SLOTS: Record<string, ImageSlot> = {
     depicts: 'Claudia on a panel',
     aspect: '16 / 10',
     size: '1600×1000',
-    src: '/images/source/stage02.jpeg',
+    src: asset('/images/source/stage02.jpeg'),
     alt: 'Claudia Gadelha seated on stage during a panel discussion',
   },
   speaking3: {
@@ -132,7 +134,7 @@ export const IMAGE_SLOTS: Record<string, ImageSlot> = {
     depicts: 'Claudia on stage, headset',
     aspect: '4 / 5',
     size: '1082×1354',
-    src: '/images/source/claudia-stage.jpeg',
+    src: asset('/images/source/claudia-stage.jpeg'),
     alt: 'Claudia Gadelha speaking on stage with a headset microphone',
   },
   ogImage: {
@@ -141,19 +143,19 @@ export const IMAGE_SLOTS: Record<string, ImageSlot> = {
     depicts: 'arena still with the headline; generated from the hero at build time',
     aspect: '1200 / 630',
     size: '1200×630',
-    src: '/og.png',
+    src: asset('/og.png'),
     alt: 'Claudia Gadelha — Financial Education Program',
   },
 }
 
 /** Community proof: member posts shared on the owner's site (SHOT 11). */
 export const PROOF_IMAGES = [
-  { src: '/images/source/depo3.jpeg', alt: 'Community post from a member describing learning the wheel strategy during a rough market', w: 1320, h: 926 },
-  { src: '/images/source/depo5.jpeg', alt: 'Community post titled “Grateful for this community and the growth”', w: 1320, h: 1573 },
-  { src: '/images/source/depo6.jpeg', alt: 'Community post from a member', w: 1320, h: 611 },
-  { src: '/images/source/depo7.jpeg', alt: 'Community post from a member', w: 1300, h: 648 },
-  { src: '/images/source/depo4.jpeg', alt: 'Community post from a member', w: 1320, h: 369 },
-  { src: '/images/source/depo2.jpeg', alt: 'Community post from a member sharing what they learned with their daughter', w: 471, h: 1024 },
+  { src: asset('/images/source/depo3.jpeg'), alt: 'Community post from a member describing learning the wheel strategy during a rough market', w: 1320, h: 926 },
+  { src: asset('/images/source/depo5.jpeg'), alt: 'Community post titled “Grateful for this community and the growth”', w: 1320, h: 1573 },
+  { src: asset('/images/source/depo6.jpeg'), alt: 'Community post from a member', w: 1320, h: 611 },
+  { src: asset('/images/source/depo7.jpeg'), alt: 'Community post from a member', w: 1300, h: 648 },
+  { src: asset('/images/source/depo4.jpeg'), alt: 'Community post from a member', w: 1320, h: 369 },
+  { src: asset('/images/source/depo2.jpeg'), alt: 'Community post from a member sharing what they learned with their daughter', w: 471, h: 1024 },
 ]
 
-export const LOGO_SRC = '/images/source/logo.png'
+export const LOGO_SRC = asset('/images/source/logo.png')

@@ -6,6 +6,7 @@ import { Nav } from '../ui/Nav'
 import { Footer } from '../sections/Footer'
 import { FORM_ENDPOINT_CONFIGURED, isEmail, useFormSubmit } from '../ui/forms/useFormSubmit'
 import './pages.css'
+import { PREVIEW } from '../lib/env'
 
 export function SpeakingPage() {
   return (
@@ -133,7 +134,7 @@ function SpeakingForm() {
   if (status === 'success') {
     return (
       <div className="form__success" role="status" aria-live="polite">
-        <p className="display display--sm">{SPEAKING.success}</p>
+        <p className="display display--sm">{PREVIEW ? 'Preview only. Nothing was sent.' : SPEAKING.success}</p>
         {!FORM_ENDPOINT_CONFIGURED && <p className="mono mono--sm gold">Form endpoint not configured (VITE_FORM_ENDPOINT). Submission logged to console.</p>}
       </div>
     )

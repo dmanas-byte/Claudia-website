@@ -18,7 +18,7 @@ export function LegalPage({ kind }: { kind: 'privacy' | 'terms' }) {
   return (
     <div className="legal">
       <header className="legal__head">
-        <a href="/" className="legal__back mono">
+        <a href="/" className="legal__back mono" data-route>
           ← {BRAND.wordmark}
         </a>
       </header>

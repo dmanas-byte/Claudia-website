@@ -54,10 +54,10 @@ export function Nav({ home = true }: { home?: boolean }) {
         <small>{BRAND.tagline}</small>
       </a>
       <nav className="nav__links" aria-label="Primary">
-        <a href="/#program" className="nav__link" onClick={go('program')}>
+        <a href="/#program" className="nav__link" onClick={go('program')} data-route={home ? undefined : ''}>
           {NAV.program}
         </a>
-        <a href="/#story" className="nav__link" onClick={go('story')}>
+        <a href="/#story" className="nav__link" onClick={go('story')} data-route={home ? undefined : ''}>
           {NAV.story}
         </a>
         <a href="/speaking" className="nav__link" data-route>
@@ -66,7 +66,7 @@ export function Nav({ home = true }: { home?: boolean }) {
         <a href="/calculator" className="nav__link" data-route>
           {NAV.calculator}
         </a>
-        <a href="/#apply" className="btn btn--gold btn--sm nav__cta" onClick={go('apply')}>
+        <a href="/#apply" className="btn btn--gold btn--sm nav__cta" onClick={go('apply')} data-route={home ? undefined : ''}>
           {NAV.cta}
         </a>
       </nav>

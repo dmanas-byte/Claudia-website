@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { useSettings } from './store/useSettings'
-import { initScroll, scrollToAnchor } from './lib/scroll'
+import { getLenis, initScroll, scrollToAnchor } from './lib/scroll'
 import { LEGACY_OPTIN_PATH, LEGACY_OPTIN_TARGET } from './content/links'
 import { Nav } from './ui/Nav'
 import { Belt } from './ui/Belt'
@@ -29,6 +29,8 @@ import { SpeakingPage } from './pages/Speaking'
 import { CalculatorPage } from './pages/Calculator'
 import { LinksPage } from './pages/Links'
 import './ui/chrome.css'
+import { PREVIEW, routeUrl } from './lib/env'
+import { PreviewBanner } from './ui/PreviewBanner'
 
 const Scene = lazy(() => import('./scene/Scene'))
 
@@ -41,9 +43,9 @@ function resolveRoute(pathname: string): Route {
   if (p === '/speaking') return 'speaking'
   if (p === '/calculator') return 'calculator'
   if (p === '/links') return 'links'
-  // GitHub Pages 404 fallback passes the path as ?p=
+  // ?p=/path: GitHub Pages 404 fallback and the relative-base preview build
   const q = new URLSearchParams(window.location.search).get('p')
-  if (q && p === '/') return resolveRoute(q)
+  if (q && q !== pathname) return resolveRoute(q)
   return 'home'
 }
 
@@ -63,15 +65,21 @@ export default function App() {
   const [route, setRoute] = useState<Route>(() => resolveRoute(window.location.pathname))
 
   useEffect(() => {
-    const onPop = () => setRoute(resolveRoute(window.location.pathname))
+    const onPop = () => {
+      setRoute(resolveRoute(window.location.pathname))
+      // new page, new height: let smooth scroll and the shot map catch up
+      requestAnimationFrame(() => requestAnimationFrame(() => getLenis()?.resize()))
+    }
     window.addEventListener('popstate', onPop)
     // intercept same-origin internal links (legal pages) without a router lib
     const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented) return
       const a = (e.target as HTMLElement).closest?.('a[data-route]') as HTMLAnchorElement | null
       if (!a || e.metaKey || e.ctrlKey || e.button !== 0) return
       e.preventDefault()
-      window.history.pushState({}, '', a.getAttribute('href'))
-      window.scrollTo(0, 0)
+      const href = a.getAttribute('href') ?? '/'
+      window.history.pushState({}, '', routeUrl(href))
+      if (!href.includes('#')) window.scrollTo(0, 0)
       onPop()
     }
     document.addEventListener('click', onClick)
@@ -81,11 +89,24 @@ export default function App() {
     }
   }, [])
 
-  if (route === 'privacy' || route === 'terms') return <LegalPage kind={route} />
-  if (route === 'speaking') return <SpeakingPage />
-  if (route === 'calculator') return <CalculatorPage />
-  if (route === 'links') return <LinksPage />
-  return <Home />
+  const page =
+    route === 'privacy' || route === 'terms' ? (
+      <LegalPage kind={route} />
+    ) : route === 'speaking' ? (
+      <SpeakingPage />
+    ) : route === 'calculator' ? (
+      <CalculatorPage />
+    ) : route === 'links' ? (
+      <LinksPage />
+    ) : (
+      <Home />
+    )
+  return (
+    <>
+      {PREVIEW && <PreviewBanner />}
+      {page}
+    </>
+  )
 }
 
 function Home() {

@@ -76,7 +76,7 @@ export function CalculatorPage() {
           </h2>
           <p className="lede shot__copy">{CALCULATOR.nextBody}</p>
           <div className="shot__ctas">
-            <a href="/#apply" className="btn btn--gold">
+            <a href="/#apply" className="btn btn--gold" data-route>
               {CTA.apply}
             </a>
           </div>
