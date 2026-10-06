@@ -1,1 +1,0 @@
-.scene{z-index:var(--z-canvas);background:var(--arena);opacity:1;transition:opacity .3s;position:fixed;inset:0}.scene.is-fading{opacity:0}.scene canvas{width:100%!important;height:100%!important}
