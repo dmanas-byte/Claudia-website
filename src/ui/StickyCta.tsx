@@ -20,8 +20,8 @@ export function StickyCta() {
       document.removeEventListener('focusout', onBlur)
     }
   }, [])
-  // hidden on the hero, on the apply shot (the form is right there) and when typing
-  const formShot = shot === 9
+  // hidden on the hero, on the apply shot (the form is right there), on the finale (its own CTAs) and when typing
+  const formShot = shot === 9 || shot === 11
   const visible = shot >= 1 && !formShot && !formFocused
   return (
     <div className={`sticky-cta ${visible ? 'is-visible' : ''}`} aria-hidden={!visible}>
