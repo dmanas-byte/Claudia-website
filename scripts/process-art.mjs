@@ -1,7 +1,7 @@
 /**
  * Turn the raw Higgsfield renders in art/ into web assets in public/film/.
  *   stills: art/raw/<src>.png  → public/film/<id>-1920.webp + <id>-1080.webp
- *   videos: art/video/<id>.mp4 → public/film/<id>.mp4 (H.264, silent, palindrome loop)
+ *   videos: art/video/<id>.mp4 → public/film/<id>.mp4 + .webm (H.264 and VP9, silent, palindrome loop)
  * Needs ffmpeg with libwebp and libx264.
  *
  *   node scripts/process-art.mjs
@@ -61,5 +61,12 @@ for (const id of VIDEOS) {
   ff('-i', input, '-filter_complex', '[0:v]scale=1600:-2:flags=lanczos,fps=24,split[a][b];[b]reverse[r];[a][r]concat=n=2:v=1:a=0,format=yuv420p[v]', '-map', '[v]', '-an', '-c:v', 'libx264', '-preset', 'slow', '-crf', '27', '-movflags', '+faststart', out)
   const outS = `${OUT}/${id}-720.mp4`
   ff('-i', input, '-filter_complex', '[0:v]scale=1280:-2:flags=lanczos,fps=24,split[a][b];[b]reverse[r];[a][r]concat=n=2:v=1:a=0,format=yuv420p[v]', '-map', '[v]', '-an', '-c:v', 'libx264', '-preset', 'slow', '-crf', '29', '-movflags', '+faststart', outS)
-  console.log(out, kb(out), 'KB |', outS, kb(outS), 'KB')
+  // VP9 copies for browsers without H.264 (some Chromium builds)
+  for (const [w, crf, name] of [
+    [1600, 36, `${OUT}/${id}.webm`],
+    [1280, 38, `${OUT}/${id}-720.webm`],
+  ]) {
+    ff('-i', input, '-filter_complex', `[0:v]scale=${w}:-2:flags=lanczos,fps=24,split[a][b];[b]reverse[r];[a][r]concat=n=2:v=1:a=0,format=yuv420p[v]`, '-map', '[v]', '-an', '-c:v', 'libvpx-vp9', '-b:v', '0', '-crf', String(crf), '-deadline', 'good', '-cpu-used', '2', '-row-mt', '1', name)
+  }
+  console.log(out, kb(out), 'KB |', outS, kb(outS), 'KB | webm', kb(`${OUT}/${id}.webm`), kb(`${OUT}/${id}-720.webm`), 'KB')
 }

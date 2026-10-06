@@ -10,6 +10,8 @@ import './film.css'
  * crossfades. Inside a plate the picture drifts slowly with scroll. Driven
  * from the scroll store without React renders.
  */
+const videoSrc = (id: PlateId, small: boolean) => (typeof document === 'undefined' ? '' : plateVideo(id, small))
+
 export function Film() {
   const root = useRef<HTMLDivElement>(null)
   const lowPower = useSettings((s) => s.lowPower)
@@ -80,7 +82,7 @@ export function Film() {
           {p.video && !reduced && (
             <video
               className="film__video"
-              data-src={plateVideo(p.id, lowPower)}
+              data-src={videoSrc(p.id, lowPower)}
               muted
               loop
               playsInline

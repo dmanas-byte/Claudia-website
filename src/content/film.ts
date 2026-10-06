@@ -60,7 +60,12 @@ export const PLATES: Plate[] = [
 ]
 
 export const plateSrc = (id: PlateId, w: 1920 | 1080) => asset(`/film/${id}-${w}.webp`)
-export const plateVideo = (id: PlateId, small: boolean) => asset(`/film/${id}${small ? '-720' : ''}.mp4`)
+/** H.264 where the browser has it (best on phones), VP9 WebM otherwise. */
+export const plateVideo = (id: PlateId, small: boolean) => {
+  const t = document.createElement('video')
+  const ext = t.canPlayType('video/mp4; codecs="avc1.640028"') ? 'mp4' : 'webm'
+  return asset(`/film/${id}${small ? '-720' : ''}.${ext}`)
+}
 
 /** Journey beats inside SHOT 03 (shared with the copy). */
 export const JOURNEY_BEATS = [0, 0.34, 0.66, 1] as const
