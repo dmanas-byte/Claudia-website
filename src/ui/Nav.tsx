@@ -14,6 +14,13 @@ export function Nav({ home = true }: { home?: boolean }) {
     if (!el || !home) return
     let hidden = false
     let lastY = 0
+    // keyboard users: a focused link must never sit off-screen
+    const onFocus = () => {
+      if (!hidden) return
+      hidden = false
+      gsap.to(el, { yPercent: 0, duration: reduced ? 0 : 0.25, ease: 'power2.out', overwrite: true })
+    }
+    el.addEventListener('focusin', onFocus)
     const unsub = useScroll.subscribe((s) => {
       const y = s.scrollY
       const goingDown = y > lastY + 2
@@ -27,7 +34,10 @@ export function Nav({ home = true }: { home?: boolean }) {
         gsap.to(el, { yPercent: 0, duration: reduced ? 0 : 0.4, ease: 'power2.out', overwrite: true })
       }
     })
-    return unsub
+    return () => {
+      unsub()
+      el.removeEventListener('focusin', onFocus)
+    }
   }, [reduced, home])
 
   const go = (anchor: string) => (e: React.MouseEvent) => {
